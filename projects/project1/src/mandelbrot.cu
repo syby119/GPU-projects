@@ -23,13 +23,9 @@ static __device__ __forceinline__ SampleData makeUnescapedSample(int maxIteratio
     return {false, static_cast<float>(maxIterations)};
 }
 
-static __device__ __forceinline__ SampleData sampleMandelbrot(int x,
-                                                              int y,
-                                                              float subPixelX,
-                                                              float subPixelY,
-                                                              Complex const* referenceOrbit,
-                                                              Complex const* seriesCoefficients,
-                                                              RenderParameters const& parameters) {
+static __device__ __forceinline__ SampleData sampleMandelbrot(
+    int x, int y, float subPixelX, float subPixelY, RenderParameters const& parameters
+    /* add additional arguments if necessary */) {
     // Match the reference's FP32 sub-pixel addition before widening to FP64.
     double const fragmentX = static_cast<double>(static_cast<float>(x) + 0.5f + subPixelX);
     double const fragmentY = static_cast<double>(static_cast<float>(y) + 0.5f + subPixelY);
@@ -53,10 +49,8 @@ static __device__ __forceinline__ float3 shade(SampleData sample, RenderParamete
     return parameters.palette.sample(sample.smoothIteration);
 }
 
-__global__ void renderMandelbrotSetKernel(float4* __restrict__ output,
-                                          Complex const* __restrict__ referenceOrbit,
-                                          Complex const* __restrict__ seriesCoefficients,
-                                          RenderParameters parameters) {
+__global__ void renderMandelbrotSetKernel(float4* __restrict__ output, RenderParameters parameters
+                                          /* add additional arguments if necessary */) {
     int const x = static_cast<int>(blockIdx.x * blockDim.x + threadIdx.x);
     int const y = static_cast<int>(blockIdx.y * blockDim.y + threadIdx.y);
     if (x >= parameters.width || y >= parameters.height) {
@@ -69,9 +63,7 @@ __global__ void renderMandelbrotSetKernel(float4* __restrict__ output,
             for (int sampleX = 0; sampleX < 2; ++sampleX) {
                 float const offsetX = sampleX == 0 ? -0.25f : 0.25f;
                 float const offsetY = sampleY == 0 ? -0.25f : 0.25f;
-                float3 const sample =
-                    shade(sampleMandelbrot(x, y, offsetX, offsetY, referenceOrbit, seriesCoefficients, parameters),
-                          parameters);
+                float3 const sample = shade(sampleMandelbrot(x, y, offsetX, offsetY, parameters), parameters);
                 color.x += sample.x;
                 color.y += sample.y;
                 color.z += sample.z;
@@ -82,7 +74,7 @@ __global__ void renderMandelbrotSetKernel(float4* __restrict__ output,
         color.z *= 0.25f;
     }
     else {
-        color = shade(sampleMandelbrot(x, y, 0.0f, 0.0f, referenceOrbit, seriesCoefficients, parameters), parameters);
+        color = shade(sampleMandelbrot(x, y, 0.0f, 0.0f, parameters), parameters);
     }
 
     size_t const index = static_cast<size_t>(y) * static_cast<size_t>(parameters.width) + static_cast<size_t>(x);
