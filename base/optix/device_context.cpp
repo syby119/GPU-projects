@@ -44,4 +44,11 @@ DeviceContext& DeviceContext::operator=(DeviceContext&& other) noexcept {
     return *this;
 }
 
+uint32_t DeviceContext::getRtCoreVersion() const {
+    uint32_t version = 0;
+    CHECK_OPTIX(
+        optixDeviceContextGetProperty(m_handle, OPTIX_DEVICE_PROPERTY_RTCORE_VERSION, &version, sizeof(version)));
+    return version;
+}
+
 } // namespace optix

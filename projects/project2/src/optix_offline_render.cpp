@@ -49,6 +49,14 @@ void renderOptixOffline(OptixOfflineConfig const& config) {
     CHECK_OPTIX(optixInit());
 
     optix::DeviceContext context;
+    uint32_t const rtCoreVersion = context.getRtCoreVersion();
+    if (rtCoreVersion == 0) {
+        std::cout << "RT Core version: Not supported\n";
+    }
+    else {
+        std::cout << std::format("RT Core version: {}.{}\n", rtCoreVersion / 10, rtCoreVersion % 10);
+    }
+
     Scene scene(context, config.assetRootDir);
     OptixRenderer renderer(context, scene, config.assetRootDir / "optix/project2.optixir", config.width, config.height);
     Camera camera({12.48607f, 1.925702f, 1.317638f}, glm::quat(1, 0, 0, 0));

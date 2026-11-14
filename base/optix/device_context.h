@@ -2,6 +2,8 @@
 
 #include <optix/utility.h>
 
+#include <cstdint>
+
 namespace optix {
 
 class DeviceContext {
@@ -14,6 +16,9 @@ public:
     DeviceContext(DeviceContext&& other) noexcept;
 
     DeviceContext& operator=(DeviceContext&& other) noexcept;
+
+    // Returns 0 if RT cores are unsupported, or major * 10 + minor otherwise.
+    uint32_t getRtCoreVersion() const;
 
     OptixDeviceContext handle() const noexcept {
         return m_handle;
