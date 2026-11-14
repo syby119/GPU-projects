@@ -51,13 +51,11 @@ static CommandLineOptions parseCommandLine(int argc, char* argv[]) {
         if (option == "--offline") {
             continue;
         }
-        if (option != "--width" && option != "--height" && option != "--output" && option != "--samples" &&
-            option != "--denoiser" && option != "--assets") {
-            throw std::invalid_argument("Unknown option: " + std::string(option));
-        }
+
         if (index >= argc) {
             throw std::invalid_argument("Option is missing its value: " + std::string(option));
         }
+
         std::string_view const value(argv[index++]);
         if (option == "--width") {
             options.width = parsePositiveUint32(value, option);
@@ -80,11 +78,14 @@ static CommandLineOptions parseCommandLine(int argc, char* argv[]) {
             }
             options.assetRootDir = value;
         }
-        else {
+        else if (option == "--output") {
             if (value.empty()) {
                 throw std::invalid_argument("--output must not be empty");
             }
             options.outputPath = value;
+        }
+        else {
+            throw std::invalid_argument("Unknown option: " + std::string(option));
         }
     }
     if (!options.offline && !options.outputPath.empty()) {
