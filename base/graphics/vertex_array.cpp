@@ -79,7 +79,11 @@ void VertexArray::disableAttrib(uint32_t location) {
 }
 
 void VertexArray::setAttribFormat(
-    uint32_t location, size_t size, DataType type, bool normalized, size_t relativeOffset) {
+    uint32_t location,
+    size_t size,
+    DataType type,
+    bool normalized,
+    size_t relativeOffset) {
     glVertexArrayAttribFormat(
         m_handle, location, GLint(size), toNativeDataType(type), normalized, GLuint(relativeOffset));
 }

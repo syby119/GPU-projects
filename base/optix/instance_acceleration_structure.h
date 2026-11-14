@@ -9,12 +9,13 @@
 namespace optix {
 
 // OptixInstance::transform is a row-major 3x4 object-to-world matrix.
-OptixInstance makeInstance(OptixTraversableHandle traversable,
-                           std::array<float, 12> const& transform,
-                           uint32_t instanceId = 0,
-                           uint32_t sbtOffset = 0,
-                           uint32_t visibilityMask = 255,
-                           uint32_t flags = OPTIX_INSTANCE_FLAG_NONE) noexcept;
+OptixInstance makeInstance(
+    OptixTraversableHandle traversable,
+    std::array<float, 12> const& transform,
+    uint32_t instanceId = 0,
+    uint32_t sbtOffset = 0,
+    uint32_t visibilityMask = 255,
+    uint32_t flags = OPTIX_INSTANCE_FLAG_NONE) noexcept;
 
 // Owns the device instance array and IAS. Referenced children (and their descendants) must outlive this IAS.
 // Rebuild the IAS if a referenced traversable changes its handle.
@@ -22,10 +23,11 @@ class InstanceAccelerationStructure {
 public:
     InstanceAccelerationStructure() = default;
 
-    InstanceAccelerationStructure(DeviceContext const& context,
-                                  OptixAccelBuildOptions options,
-                                  std::span<OptixInstance const> instances,
-                                  cudaStream_t stream = nullptr);
+    InstanceAccelerationStructure(
+        DeviceContext const& context,
+        OptixAccelBuildOptions options,
+        std::span<OptixInstance const> instances,
+        cudaStream_t stream = nullptr);
 
     InstanceAccelerationStructure(InstanceAccelerationStructure&&) noexcept = default;
     InstanceAccelerationStructure& operator=(InstanceAccelerationStructure&&) noexcept = default;

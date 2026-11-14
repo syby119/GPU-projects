@@ -16,10 +16,11 @@ class Pipeline {
 public:
     Pipeline() = default;
 
-    Pipeline(DeviceContext const& context,
-             OptixPipelineCompileOptions const& compileOptions,
-             OptixPipelineLinkOptions const& linkOptions,
-             std::span<ProgramGroup const> groups);
+    Pipeline(
+        DeviceContext const& context,
+        OptixPipelineCompileOptions const& compileOptions,
+        OptixPipelineLinkOptions const& linkOptions,
+        std::span<ProgramGroup const> groups);
 
     ~Pipeline() noexcept;
 
@@ -34,13 +35,14 @@ public:
     void
     setStackSize(uint32_t directTraversal, uint32_t directState, uint32_t continuation, uint32_t maxTraversableDepth);
 
-    void launch(ShaderBindingTable const& sbt,
-                CUdeviceptr params,
-                size_t paramsSize,
-                cudaStream_t stream,
-                uint32_t width,
-                uint32_t height,
-                uint32_t depth = 1) const;
+    void launch(
+        ShaderBindingTable const& sbt,
+        CUdeviceptr params,
+        size_t paramsSize,
+        cudaStream_t stream,
+        uint32_t width,
+        uint32_t height,
+        uint32_t depth = 1) const;
 
 private:
     OptixPipeline m_handle{};

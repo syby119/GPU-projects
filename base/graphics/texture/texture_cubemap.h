@@ -39,11 +39,12 @@ public:
 
     uint32_t getNativeType() const override;
 
-    void update(void const* data,
-                Texture::ExternalFormat pixelFormat,
-                Texture::PixelType pixelType,
-                Face face,
-                uint32_t level = 0);
+    void update(
+        void const* data,
+        Texture::ExternalFormat pixelFormat,
+        Texture::PixelType pixelType,
+        Face face,
+        uint32_t level = 0);
 
     void generateMipmap();
 

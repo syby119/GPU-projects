@@ -14,19 +14,21 @@
 
 class OptixRenderer {
 public:
-    OptixRenderer(optix::DeviceContext const& context,
-                  Scene const& scene,
-                  std::filesystem::path const& modulePath,
-                  uint32_t width,
-                  uint32_t height);
+    OptixRenderer(
+        optix::DeviceContext const& context,
+        Scene const& scene,
+        std::filesystem::path const& modulePath,
+        uint32_t width,
+        uint32_t height);
 
     void resize(uint32_t width, uint32_t height);
 
-    void render(float4* pixels,
-                uint32_t firstSampleIndex,
-                Camera const& camera,
-                bool denoise = true,
-                uint32_t samplesPerFrame = 1);
+    void render(
+        float4* pixels,
+        uint32_t firstSampleIndex,
+        Camera const& camera,
+        bool denoise = true,
+        uint32_t samplesPerFrame = 1);
 
 private:
     // Borrowed dependencies; both must outlive the renderer.

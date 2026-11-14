@@ -24,8 +24,9 @@ static void selectCudaDeviceForCurrentOpenGLContext() {
         &glDeviceCount, devices.data(), static_cast<uint32_t>(cudaDeviceCount), cudaGLDeviceListCurrentFrame));
 
     if (glDeviceCount == 0) {
-        throw std::runtime_error("No CUDA device is associated with the current OpenGL context.\n"
-                                 "Run the program natively on a CUDA-capable GPU that also owns the OpenGL context.\n");
+        throw std::runtime_error(
+            "No CUDA device is associated with the current OpenGL context.\n"
+            "Run the program natively on a CUDA-capable GPU that also owns the OpenGL context.\n");
     }
 
     CHECK_CUDA(cudaSetDevice(devices[0]));
@@ -73,12 +74,13 @@ MandelbrotViewer::MandelbrotViewer(Config const& config)
     selectCudaDeviceForCurrentOpenGLContext();
 
     m_palette = std::make_unique<Palette>();
-    m_mandelbrotCompute = std::make_unique<MandelbrotCompute>(static_cast<int>(m_window.framebufferWidth()),
-                                                              static_cast<int>(m_window.framebufferHeight()),
-                                                              m_startCenter,
-                                                              m_startZoom,
-                                                              config.center,
-                                                              config.zoom);
+    m_mandelbrotCompute = std::make_unique<MandelbrotCompute>(
+        static_cast<int>(m_window.framebufferWidth()),
+        static_cast<int>(m_window.framebufferHeight()),
+        m_startCenter,
+        m_startZoom,
+        config.center,
+        config.zoom);
     recreateColorBuffer(m_window.framebufferWidth(), m_window.framebufferHeight());
 
     m_renderScreenProgram = createRenderScreenProgram();
@@ -144,12 +146,13 @@ void MandelbrotViewer::renderFrame() {
     }
 
     m_palette->shift = m_playback.paletteShift();
-    frameInfo = m_mandelbrotCompute->render(output,
-                                            static_cast<int>(width),
-                                            static_cast<int>(height),
-                                            m_playback.timeSeconds(),
-                                            m_playback.antialias(),
-                                            *m_palette);
+    frameInfo = m_mandelbrotCompute->render(
+        output,
+        static_cast<int>(width),
+        static_cast<int>(height),
+        m_playback.timeSeconds(),
+        m_playback.antialias(),
+        *m_palette);
     m_colorBufferResource->unmap();
 
     gfx::RHI::setViewport(gfx::Viewport(width, height));

@@ -6,9 +6,10 @@
 
 namespace optix {
 
-ProgramGroup::ProgramGroup(DeviceContext const& context,
-                           OptixProgramGroupDesc const& description,
-                           OptixProgramGroupOptions const& options) {
+ProgramGroup::ProgramGroup(
+    DeviceContext const& context,
+    OptixProgramGroupDesc const& description,
+    OptixProgramGroupOptions const& options) {
     OptixResult const result =
         optixProgramGroupCreate(context.handle(), &description, 1, &options, nullptr, nullptr, &m_handle);
     if (result != OPTIX_SUCCESS) {

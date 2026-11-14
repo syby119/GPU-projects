@@ -16,13 +16,14 @@ namespace optix {
 
 inline void checkOptixImpl(OptixResult result, char const* operation, char const* file, uint32_t line) {
     if (result != OPTIX_SUCCESS) {
-        std::fprintf(stderr,
-                     "[OptiX] %s failed at %s:%u: %s (%d)\n",
-                     operation,
-                     file,
-                     line,
-                     optixGetErrorName(result),
-                     static_cast<int>(result));
+        std::fprintf(
+            stderr,
+            "[OptiX] %s failed at %s:%u: %s (%d)\n",
+            operation,
+            file,
+            line,
+            optixGetErrorName(result),
+            static_cast<int>(result));
         std::string message = std::string(operation) + ": " + optixGetErrorName(result);
         throw std::runtime_error(message);
     }
@@ -30,13 +31,14 @@ inline void checkOptixImpl(OptixResult result, char const* operation, char const
 
 inline void logOptixErrorImpl(OptixResult result, char const* operation, char const* file, uint32_t line) noexcept {
     if (result != OPTIX_SUCCESS) {
-        std::fprintf(stderr,
-                     "[OptiX] %s failed at %s:%u: %s (%d)\n",
-                     operation,
-                     file,
-                     line,
-                     optixGetErrorName(result),
-                     static_cast<int>(result));
+        std::fprintf(
+            stderr,
+            "[OptiX] %s failed at %s:%u: %s (%d)\n",
+            operation,
+            file,
+            line,
+            optixGetErrorName(result),
+            static_cast<int>(result));
     }
 }
 

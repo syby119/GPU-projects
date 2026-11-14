@@ -36,16 +36,18 @@ void printDeviceInfo(int device) {
     int runtimeVersion = 0;
     CHECK_CUDA(cudaDriverGetVersion(&driverVersion));
     CHECK_CUDA(cudaRuntimeGetVersion(&runtimeVersion));
-    println("  CUDA Driver Version / Runtime Version           {}.{} / {}.{}",
-            driverVersion / 1000,
-            (driverVersion % 100) / 10,
-            runtimeVersion / 1000,
-            (runtimeVersion % 100) / 10);
+    println(
+        "  CUDA Driver Version / Runtime Version           {}.{} / {}.{}",
+        driverVersion / 1000,
+        (driverVersion % 100) / 10,
+        runtimeVersion / 1000,
+        (runtimeVersion % 100) / 10);
     println("  CUDA Capability Major/Minor Version Number:     {}.{}", property.major, property.minor);
-    println("  Device PCI Domain ID / Bus ID / Location ID:    {} / {} / {}",
-            property.pciDomainID,
-            property.pciBusID,
-            property.pciDeviceID);
+    println(
+        "  Device PCI Domain ID / Bus ID / Location ID:    {} / {} / {}",
+        property.pciDomainID,
+        property.pciBusID,
+        property.pciDeviceID);
 
     println("  Multiprocessor Count:                           {}", property.multiProcessorCount);
 
@@ -68,12 +70,14 @@ void printDeviceInfo(int device) {
 
     int clockRate;
     CHECK_CUDA(cudaDeviceGetAttribute(&clockRate, cudaDevAttrClockRate, device));
-    println("  GPU Max Clock Rate:                             {:.0f} MHz ({:.2f} GHz)",
-            clockRate * 1e-3f,
-            clockRate * 1e-6f);
-    println("  Total Amount of Global Memory:                  {:.0f} MBytes ({} bytes)",
-            static_cast<float>(property.totalGlobalMem / 1048576.0f),
-            static_cast<unsigned long long>(property.totalGlobalMem));
+    println(
+        "  GPU Max Clock Rate:                             {:.0f} MHz ({:.2f} GHz)",
+        clockRate * 1e-3f,
+        clockRate * 1e-6f);
+    println(
+        "  Total Amount of Global Memory:                  {:.0f} MBytes ({} bytes)",
+        static_cast<float>(property.totalGlobalMem / 1048576.0f),
+        static_cast<unsigned long long>(property.totalGlobalMem));
     int memoryClockRate;
 #if CUDART_VERSION >= 13000
     CHECK_CUDA(cudaDeviceGetAttribute(&memoryClockRate, cudaDevAttrMemoryClockRate, device));
@@ -101,39 +105,46 @@ void printDeviceInfo(int device) {
     println("  Warp Size:                                      {}", property.warpSize);
     println("  Maximum Number of Threads per Multiprocessor:   {}", property.maxThreadsPerMultiProcessor);
     println("  Maximum Number of Threads per Block:            {}", property.maxThreadsPerBlock);
-    println("  Max Dimension Sizes of a Thread Block:          {}, {}, {}",
-            property.maxThreadsDim[0],
-            property.maxThreadsDim[1],
-            property.maxThreadsDim[2]);
-    println("  Max Dimension Sizes of a Grid Size:             {}, {}, {}",
-            property.maxGridSize[0],
-            property.maxGridSize[1],
-            property.maxGridSize[2]);
+    println(
+        "  Max Dimension Sizes of a Thread Block:          {}, {}, {}",
+        property.maxThreadsDim[0],
+        property.maxThreadsDim[1],
+        property.maxThreadsDim[2]);
+    println(
+        "  Max Dimension Sizes of a Grid Size:             {}, {}, {}",
+        property.maxGridSize[0],
+        property.maxGridSize[1],
+        property.maxGridSize[2]);
 
     println("  Maximum 1D Texture Dimension Size               {}", property.maxTexture1D);
-    println("  Maximum 2D Texture Dimension Size               {} x {}",
-            property.maxTexture2D[0],
-            property.maxTexture2D[1]);
-    println("  Maximum 3D Texture Dimension Size               {} x {} x {}",
-            property.maxTexture3D[0],
-            property.maxTexture3D[1],
-            property.maxTexture3D[2]);
-    println("  Maximum Layered 1D Texture Size                 {}, {} layers",
-            property.maxTexture1DLayered[0],
-            property.maxTexture1DLayered[1]);
-    println("  Maximum Layered 2D Texture Size                 {} x {}, {} layers",
-            property.maxTexture2DLayered[0],
-            property.maxTexture2DLayered[1],
-            property.maxTexture2DLayered[2]);
+    println(
+        "  Maximum 2D Texture Dimension Size               {} x {}",
+        property.maxTexture2D[0],
+        property.maxTexture2D[1]);
+    println(
+        "  Maximum 3D Texture Dimension Size               {} x {} x {}",
+        property.maxTexture3D[0],
+        property.maxTexture3D[1],
+        property.maxTexture3D[2]);
+    println(
+        "  Maximum Layered 1D Texture Size                 {}, {} layers",
+        property.maxTexture1DLayered[0],
+        property.maxTexture1DLayered[1]);
+    println(
+        "  Maximum Layered 2D Texture Size                 {} x {}, {} layers",
+        property.maxTexture2DLayered[0],
+        property.maxTexture2DLayered[1],
+        property.maxTexture2DLayered[2]);
     println("  Maximum Memory Pitch:                           {} bytes", property.memPitch);
     println("  Texture Alignment:                              {} bytes", property.textureAlignment);
     println("  Surface Alignment Requirement:                  {}", property.surfaceAlignment ? "Yes" : "No");
 
     int gpuOverlap;
     CHECK_CUDA(cudaDeviceGetAttribute(&gpuOverlap, cudaDevAttrGpuOverlap, device));
-    println("  Concurrent Copy and Kernel Execution:           {} with {} Copy Engine(s)",
-            gpuOverlap ? "Yes" : "No",
-            property.asyncEngineCount);
+    println(
+        "  Concurrent Copy and Kernel Execution:           {} with {} Copy Engine(s)",
+        gpuOverlap ? "Yes" : "No",
+        property.asyncEngineCount);
 
     int kernelExecTimeout;
     CHECK_CUDA(cudaDeviceGetAttribute(&kernelExecTimeout, cudaDevAttrKernelExecTimeout, device));
@@ -149,8 +160,9 @@ void printDeviceInfo(int device) {
     println("  Device Supports Host Native Atomic Operations:  {}", hostNativeAtomicSupported ? "Yes" : "No");
     println("  Device Has ECC Support:                         {}", property.ECCEnabled ? "Enabled" : "Disabled");
 #if defined(WIN32) || defined(_WIN32) || defined(WIN64) || defined(_WIN64)
-    println("  CUDA Device Driver Mode (TCC or WDDM):          {}",
-            property.tccDriver ? "TCC (Tesla Compute Cluster Driver)" : "WDDM (Windows Display Driver Model)");
+    println(
+        "  CUDA Device Driver Mode (TCC or WDDM):          {}",
+        property.tccDriver ? "TCC (Tesla Compute Cluster Driver)" : "WDDM (Windows Display Driver Model)");
 #endif
     println("  Device Supports Unified Addressing (UVA):       {}", property.unifiedAddressing ? "Yes" : "No");
     println("  Device Supports Managed Memory:                 {}", property.managedMemory ? "Yes" : "No");
@@ -202,12 +214,13 @@ void printPeerAccessInfo(int deviceCount) {
 
                 int canAccessPeer;
                 CHECK_CUDA(cudaDeviceCanAccessPeer(&canAccessPeer, gpuIds[source], gpuIds[destination]));
-                println("> Peer Access from {} (GPU{}) -> {} (GPU{}) : {}",
-                        properties[gpuIds[source]].name,
-                        gpuIds[source],
-                        properties[gpuIds[destination]].name,
-                        gpuIds[destination],
-                        canAccessPeer ? "Yes" : "No");
+                println(
+                    "> Peer Access from {} (GPU{}) -> {} (GPU{}) : {}",
+                    properties[gpuIds[source]].name,
+                    gpuIds[source],
+                    properties[gpuIds[destination]].name,
+                    gpuIds[destination],
+                    canAccessPeer ? "Yes" : "No");
             }
         }
     }

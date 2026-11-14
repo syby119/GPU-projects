@@ -14,10 +14,11 @@ class AccelerationStructure {
 public:
     AccelerationStructure() = default;
 
-    AccelerationStructure(DeviceContext const& context,
-                          OptixAccelBuildOptions options,
-                          std::span<OptixBuildInput const> inputs,
-                          cudaStream_t stream = nullptr);
+    AccelerationStructure(
+        DeviceContext const& context,
+        OptixAccelBuildOptions options,
+        std::span<OptixBuildInput const> inputs,
+        cudaStream_t stream = nullptr);
 
     AccelerationStructure(AccelerationStructure&& other) noexcept;
 

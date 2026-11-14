@@ -187,7 +187,13 @@ void Framebuffer::readBackBuffer() {
 }
 
 void Framebuffer::readPixels(
-    int x, int y, int width, int height, Texture::ExternalFormat format, Texture::PixelType type, void* data) {
+    int x,
+    int y,
+    int width,
+    int height,
+    Texture::ExternalFormat format,
+    Texture::PixelType type,
+    void* data) {
     // Note we need to set read buffer before read pixel: glReadBuffer(xxx);
     // Also, don't forget to bind the framebuffer
     GLenum glFormat{details::toNativeExternalFormat(format)};

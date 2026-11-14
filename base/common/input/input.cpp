@@ -123,11 +123,12 @@ void Input::setCursorMode(CursorMode mode) {
 void Input::printKeyStates() const {
     for (std::size_t i = 0; i < m_keyStates.size(); ++i) {
         if (m_keyStates[i] != KeyState::None) {
-            std::cout << std::format("KeyCode {} ({}) state {} ({})\n",
-                                     i,
-                                     toString(static_cast<KeyCode>(i)),
-                                     static_cast<int>(m_keyStates[i]),
-                                     toString(m_keyStates[i]));
+            std::cout << std::format(
+                "KeyCode {} ({}) state {} ({})\n",
+                i,
+                toString(static_cast<KeyCode>(i)),
+                static_cast<int>(m_keyStates[i]),
+                toString(m_keyStates[i]));
         }
     }
 }
@@ -135,11 +136,12 @@ void Input::printKeyStates() const {
 void Input::printMouseButtonStates() const {
     for (std::size_t i = 0; i < m_mouseButtonStates.size(); ++i) {
         if (m_mouseButtonStates[i] != MouseButtonState::None) {
-            std::cout << std::format("MouseButton {} ({}) state {} ({})\n",
-                                     i,
-                                     toString(static_cast<MouseButton>(i)),
-                                     static_cast<int>(m_mouseButtonStates[i]),
-                                     toString(m_mouseButtonStates[i]));
+            std::cout << std::format(
+                "MouseButton {} ({}) state {} ({})\n",
+                i,
+                toString(static_cast<MouseButton>(i)),
+                static_cast<int>(m_mouseButtonStates[i]),
+                toString(m_mouseButtonStates[i]));
         }
     }
 }

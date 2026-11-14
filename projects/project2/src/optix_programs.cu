@@ -127,19 +127,20 @@ static __device__ Hit trace(Ray const& ray) {
     uint64_t pointer = reinterpret_cast<uint64_t>(&hit);
     uint32_t low = static_cast<uint32_t>(pointer);
     uint32_t high = static_cast<uint32_t>(pointer >> 32);
-    optixTrace(params.scene,
-               ray.origin,
-               ray.direction,
-               .001f,
-               1e16f,
-               0,
-               OptixVisibilityMask(255),
-               OPTIX_RAY_FLAG_NONE,
-               0,
-               1,
-               0,
-               low,
-               high);
+    optixTrace(
+        params.scene,
+        ray.origin,
+        ray.direction,
+        .001f,
+        1e16f,
+        0,
+        OptixVisibilityMask(255),
+        OPTIX_RAY_FLAG_NONE,
+        0,
+        1,
+        0,
+        low,
+        high);
     return hit;
 }
 

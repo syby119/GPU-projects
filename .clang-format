@@ -134,9 +134,37 @@ QualifierAlignment: Right
 # Function arguments / parameters
 # ------------------------------------------------------------
 
+# Short declarations stay on one line:
+#
+# void process(int value, bool enabled);
+#
+# Long parameter lists start after '(' with one parameter per line:
+#
+# void processFiles(
+#     std::string const& inputDirectory,
+#     std::string const& outputDirectory,
+#     size_t bufferSize,
+#     int workerCount,
+#     bool overwriteExisting);
+#
+# Long function calls follow the same layout:
+#
+# processFiles(
+#     options.inputDirectory,
+#     options.outputDirectory,
+#     options.bufferSize,
+#     options.workerCount,
+#     options.overwriteExisting);
+
 # Once arguments wrap, do not pack multiple arguments onto one line.
 BinPackArguments: false
 BinPackParameters: false
+
+# Start multiline function parameter lists after the opening parenthesis.
+BreakAfterOpenBracketFunction: true
+
+# Do not pack all declaration parameters onto a single continuation line.
+AllowAllParametersOfDeclarationOnNextLine: false
 
 # ------------------------------------------------------------
 # Includes

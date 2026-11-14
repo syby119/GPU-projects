@@ -87,7 +87,13 @@ public:
     static void readBackBuffer();
 
     static void readPixels(
-        int x, int y, int width, int height, Texture::ExternalFormat format, Texture::PixelType type, void* data);
+        int x,
+        int y,
+        int width,
+        int height,
+        Texture::ExternalFormat format,
+        Texture::PixelType type,
+        void* data);
 
     // TODO: Support default framebuffer
     // static Framebuffer getDefaultFramebuffer();

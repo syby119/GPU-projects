@@ -13,10 +13,11 @@ static std::span<OptixBuildInput const> geometryInputs(std::span<OptixBuildInput
     return inputs;
 }
 
-GeometryAccelerationStructure::GeometryAccelerationStructure(DeviceContext const& context,
-                                                             OptixAccelBuildOptions options,
-                                                             std::span<OptixBuildInput const> inputs,
-                                                             cudaStream_t stream)
+GeometryAccelerationStructure::GeometryAccelerationStructure(
+    DeviceContext const& context,
+    OptixAccelBuildOptions options,
+    std::span<OptixBuildInput const> inputs,
+    cudaStream_t stream)
     : m_accelerationStructure(context, options, geometryInputs(inputs), stream) {}
 
 void GeometryAccelerationStructure::update(std::span<OptixBuildInput const> inputs, cudaStream_t stream) {

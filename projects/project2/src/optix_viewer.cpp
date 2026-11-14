@@ -75,11 +75,12 @@ OptixViewer::OptixViewer(Application::Config const& config)
     CHECK_OPTIX(optixInit());
     m_context = std::make_unique<optix::DeviceContext>();
     m_scene = std::make_unique<Scene>(*m_context, config.assetRootDir);
-    m_renderer = std::make_unique<OptixRenderer>(*m_context,
-                                                 *m_scene,
-                                                 config.assetRootDir / "optix/project2.optixir",
-                                                 m_window.framebufferWidth(),
-                                                 m_window.framebufferHeight());
+    m_renderer = std::make_unique<OptixRenderer>(
+        *m_context,
+        *m_scene,
+        config.assetRootDir / "optix/project2.optixir",
+        m_window.framebufferWidth(),
+        m_window.framebufferHeight());
 
     resizeOutput(m_window.framebufferWidth(), m_window.framebufferHeight());
 

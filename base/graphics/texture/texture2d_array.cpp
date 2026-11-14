@@ -89,7 +89,11 @@ void Texture2DArray::generateMipmap() {
 }
 
 void Texture2DArray::update(
-    void const* data, ExternalFormat pixelFormat, PixelType pixelType, uint32_t layer, uint32_t mipmaplevel) {
+    void const* data,
+    ExternalFormat pixelFormat,
+    PixelType pixelType,
+    uint32_t layer,
+    uint32_t mipmaplevel) {
     if (!data) {
         return;
     }

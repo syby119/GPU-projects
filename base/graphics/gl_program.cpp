@@ -503,14 +503,15 @@ GLProgram::GLProgram(std::vector<ShaderModule> const& shaderModules) {
 #endif
 }
 
-GLProgram::GLProgram(std::vector<ShaderModule> const& shaderModules,
-                     std::map<ShaderModule::Stage, UniformVarInfoMap> const& uniformVarStageInfos,
-                     std::map<ShaderModule::Stage, TextureInfoMap> const& textureStageInfos,
-                     std::map<ShaderModule::Stage, UniformBufferInfoMap> const& uniformBufferStageInfos,
-                     std::map<ShaderModule::Stage, StorageBufferInfoMap> const& storageBufferStageInfos,
-                     std::map<ShaderModule::Stage, StorageImageInfoMap> const& storageImageStageInfos,
-                     std::map<ShaderModule::Stage, AtomicCounterInfoMap> const& atomicCounterStageInfos,
-                     TransformFeedbackBufferInfoMap const& transformFeedbackBufferInfos)
+GLProgram::GLProgram(
+    std::vector<ShaderModule> const& shaderModules,
+    std::map<ShaderModule::Stage, UniformVarInfoMap> const& uniformVarStageInfos,
+    std::map<ShaderModule::Stage, TextureInfoMap> const& textureStageInfos,
+    std::map<ShaderModule::Stage, UniformBufferInfoMap> const& uniformBufferStageInfos,
+    std::map<ShaderModule::Stage, StorageBufferInfoMap> const& storageBufferStageInfos,
+    std::map<ShaderModule::Stage, StorageImageInfoMap> const& storageImageStageInfos,
+    std::map<ShaderModule::Stage, AtomicCounterInfoMap> const& atomicCounterStageInfos,
+    TransformFeedbackBufferInfoMap const& transformFeedbackBufferInfos)
     : m_transformFeedbackBufferInfos{transformFeedbackBufferInfos} {
     // create program and attach/link shader modules
     m_handle = glCreateProgram();
@@ -645,12 +646,13 @@ void GLProgram::setUniform(int location, glm::bvec3 const& value) const {
 }
 
 void GLProgram::setUniform(int location, glm::bvec4 const& value) const {
-    glProgramUniform4i(m_handle,
-                       location,
-                       static_cast<int>(value.x),
-                       static_cast<int>(value.y),
-                       static_cast<int>(value.z),
-                       static_cast<int>(value.w));
+    glProgramUniform4i(
+        m_handle,
+        location,
+        static_cast<int>(value.x),
+        static_cast<int>(value.y),
+        static_cast<int>(value.z),
+        static_cast<int>(value.w));
 }
 
 void GLProgram::setUniform(int location, int const& value) const {
@@ -841,24 +843,26 @@ void GLProgram::queryTransformFeedbackInfo() {
     constexpr GLsizei bufferPropertyCount{static_cast<GLsizei>(std::size(bufferProperties))};
     for (GLint i = 0; i < bufferCount; ++i) {
         GLint results[bufferPropertyCount]{};
-        glGetProgramResourceiv(m_handle,
-                               GL_TRANSFORM_FEEDBACK_BUFFER,
-                               static_cast<GLuint>(i),
-                               bufferPropertyCount,
-                               bufferProperties,
-                               bufferPropertyCount,
-                               nullptr,
-                               results);
+        glGetProgramResourceiv(
+            m_handle,
+            GL_TRANSFORM_FEEDBACK_BUFFER,
+            static_cast<GLuint>(i),
+            bufferPropertyCount,
+            bufferProperties,
+            bufferPropertyCount,
+            nullptr,
+            results);
 
         GLint const bufferBinding{results[0]};
         GLint const stride{results[1]};
         if (bufferBinding < 0 || stride < 0) {
             continue;
         }
-        m_transformFeedbackBufferInfos.try_emplace(bufferBinding,
-                                                   TransformFeedbackBufferInfo{
-                                                       .stride = stride,
-                                                   });
+        m_transformFeedbackBufferInfos.try_emplace(
+            bufferBinding,
+            TransformFeedbackBufferInfo{
+                .stride = stride,
+            });
     }
 
     GLint varyingCount{};
@@ -874,14 +878,15 @@ void GLProgram::queryTransformFeedbackInfo() {
     constexpr GLsizei varyingPropertyCount{static_cast<GLsizei>(std::size(varyingProperties))};
     for (GLint i = 0; i < varyingCount; ++i) {
         GLint results[varyingPropertyCount]{};
-        glGetProgramResourceiv(m_handle,
-                               GL_TRANSFORM_FEEDBACK_VARYING,
-                               static_cast<GLuint>(i),
-                               varyingPropertyCount,
-                               varyingProperties,
-                               varyingPropertyCount,
-                               nullptr,
-                               results);
+        glGetProgramResourceiv(
+            m_handle,
+            GL_TRANSFORM_FEEDBACK_VARYING,
+            static_cast<GLuint>(i),
+            varyingPropertyCount,
+            varyingProperties,
+            varyingPropertyCount,
+            nullptr,
+            results);
 
         GLint const nameLength{results[0]};
         GLint const arraySize{results[2]};
@@ -893,12 +898,13 @@ void GLProgram::queryTransformFeedbackInfo() {
 
         std::vector<GLchar> nameBuffer(static_cast<std::string::size_type>(nameLength));
         GLsizei writtenNameLength{};
-        glGetProgramResourceName(m_handle,
-                                 GL_TRANSFORM_FEEDBACK_VARYING,
-                                 static_cast<GLuint>(i),
-                                 nameLength,
-                                 &writtenNameLength,
-                                 nameBuffer.data());
+        glGetProgramResourceName(
+            m_handle,
+            GL_TRANSFORM_FEEDBACK_VARYING,
+            static_cast<GLuint>(i),
+            nameLength,
+            &writtenNameLength,
+            nameBuffer.data());
         std::string name(nameBuffer.data(), static_cast<std::string::size_type>(writtenNameLength));
 
         VarType const type{results[1] == GL_NONE ? VarType::Unknown : getVarType(results[1])};
@@ -907,12 +913,13 @@ void GLProgram::queryTransformFeedbackInfo() {
             continue;
         }
 
-        bufferIt->second.varyings.try_emplace(std::move(name),
-                                              TransformFeedbackVaryingInfo{
-                                                  .type = type,
-                                                  .arraySize = static_cast<uint32_t>(arraySize),
-                                                  .offset = offset,
-                                              });
+        bufferIt->second.varyings.try_emplace(
+            std::move(name),
+            TransformFeedbackVaryingInfo{
+                .type = type,
+                .arraySize = static_cast<uint32_t>(arraySize),
+                .offset = offset,
+            });
     }
 }
 

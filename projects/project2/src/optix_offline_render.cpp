@@ -78,12 +78,13 @@ void renderOptixOffline(OptixOfflineConfig const& config) {
     // OptiX image row zero is bottom-left; PNG row zero is top-left.
     stbi_flip_vertically_on_write(1);
     std::string const path = config.outputPath.string();
-    if (!stbi_write_png(path.c_str(),
-                        static_cast<int>(config.width),
-                        static_cast<int>(config.height),
-                        4,
-                        rgba.data(),
-                        static_cast<int>(width * 4))) {
+    if (!stbi_write_png(
+            path.c_str(),
+            static_cast<int>(config.width),
+            static_cast<int>(config.height),
+            4,
+            rgba.data(),
+            static_cast<int>(width * 4))) {
         throw std::runtime_error("Failed to write offline PNG: " + path);
     }
     std::cout << "Image saved to " << config.outputPath << '\n';

@@ -12,10 +12,11 @@ Module Module::adopt(OptixModule handle) noexcept {
     return module;
 }
 
-Module::Module(DeviceContext const& context,
-               OptixModuleCompileOptions const& moduleOptions,
-               OptixPipelineCompileOptions const& pipelineOptions,
-               std::span<char const> input) {
+Module::Module(
+    DeviceContext const& context,
+    OptixModuleCompileOptions const& moduleOptions,
+    OptixPipelineCompileOptions const& pipelineOptions,
+    std::span<char const> input) {
     OptixResult const result = optixModuleCreate(
         context.handle(), &moduleOptions, &pipelineOptions, input.data(), input.size(), nullptr, nullptr, &m_handle);
     if (result != OPTIX_SUCCESS) {

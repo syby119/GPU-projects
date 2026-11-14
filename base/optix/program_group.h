@@ -8,9 +8,10 @@ class ProgramGroup {
 public:
     ProgramGroup() = default;
 
-    ProgramGroup(DeviceContext const& context,
-                 OptixProgramGroupDesc const& description,
-                 OptixProgramGroupOptions const& options);
+    ProgramGroup(
+        DeviceContext const& context,
+        OptixProgramGroupDesc const& description,
+        OptixProgramGroupOptions const& options);
 
     ~ProgramGroup() noexcept;
 

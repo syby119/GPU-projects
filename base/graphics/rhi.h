@@ -146,7 +146,11 @@ public:
     setBlendFuncSeperate(BlendFactor rgbSrc, BlendFactor rgbDst, BlendFactor alphaSrc, BlendFactor alphaDst);
 
     static void setBlendFuncSeperate(
-        uint32_t index, BlendFactor rgbSrc, BlendFactor rgbDst, BlendFactor alphaSrc, BlendFactor alphaDst);
+        uint32_t index,
+        BlendFactor rgbSrc,
+        BlendFactor rgbDst,
+        BlendFactor alphaSrc,
+        BlendFactor alphaDst);
 
     // cubemap
     static void enableCubemapSeamless(bool enable);

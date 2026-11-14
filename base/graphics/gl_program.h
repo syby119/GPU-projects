@@ -196,14 +196,15 @@ public:
 public:
     GLProgram(std::vector<ShaderModule> const& shaderModules);
 
-    GLProgram(std::vector<ShaderModule> const& shaderModules,
-              std::map<ShaderModule::Stage, UniformVarInfoMap> const& uniformVarInfos,
-              std::map<ShaderModule::Stage, TextureInfoMap> const& textureInfos,
-              std::map<ShaderModule::Stage, UniformBufferInfoMap> const& uniformBufferInfos,
-              std::map<ShaderModule::Stage, StorageBufferInfoMap> const& storageBufferInfos,
-              std::map<ShaderModule::Stage, StorageImageInfoMap> const& storageImageInfos,
-              std::map<ShaderModule::Stage, AtomicCounterInfoMap> const& atomicCounterInfos,
-              TransformFeedbackBufferInfoMap const& transformFeedbackBufferInfos = {});
+    GLProgram(
+        std::vector<ShaderModule> const& shaderModules,
+        std::map<ShaderModule::Stage, UniformVarInfoMap> const& uniformVarInfos,
+        std::map<ShaderModule::Stage, TextureInfoMap> const& textureInfos,
+        std::map<ShaderModule::Stage, UniformBufferInfoMap> const& uniformBufferInfos,
+        std::map<ShaderModule::Stage, StorageBufferInfoMap> const& storageBufferInfos,
+        std::map<ShaderModule::Stage, StorageImageInfoMap> const& storageImageInfos,
+        std::map<ShaderModule::Stage, AtomicCounterInfoMap> const& atomicCounterInfos,
+        TransformFeedbackBufferInfoMap const& transformFeedbackBufferInfos = {});
 
     GLProgram(GLProgram&& rhs) noexcept = default;
 

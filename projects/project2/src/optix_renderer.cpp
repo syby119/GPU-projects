@@ -9,15 +9,18 @@
 #include <stdexcept>
 #include <string>
 
-OptixRenderer::OptixRenderer(optix::DeviceContext const& context,
-                             Scene const& scene,
-                             std::filesystem::path const& modulePath,
-                             uint32_t width,
-                             uint32_t height)
+OptixRenderer::OptixRenderer(
+    optix::DeviceContext const& context,
+    Scene const& scene,
+    std::filesystem::path const& modulePath,
+    uint32_t width,
+    uint32_t height)
     : m_context(context)
     , m_scene(scene)
     , m_denoiser(
-          context, OPTIX_DENOISER_MODEL_KIND_TEMPORAL_AOV, OptixDenoiserOptions{.guideAlbedo = 1, .guideNormal = 1}) {
+          context,
+          OPTIX_DENOISER_MODEL_KIND_TEMPORAL_AOV,
+          OptixDenoiserOptions{.guideAlbedo = 1, .guideNormal = 1}) {
     createPipelineAndShaderBindingTable(modulePath);
     m_launchParams.reallocate(1);
     resize(width, height);
@@ -131,7 +134,11 @@ void OptixRenderer::resetTemporalHistory() {
 }
 
 void OptixRenderer::render(
-    float4* pixels, uint32_t firstSampleIndex, Camera const& camera, bool denoise, uint32_t samplesPerFrame) {
+    float4* pixels,
+    uint32_t firstSampleIndex,
+    Camera const& camera,
+    bool denoise,
+    uint32_t samplesPerFrame) {
     (void)firstSampleIndex;
     (void)camera;
     (void)denoise;

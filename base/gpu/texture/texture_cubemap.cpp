@@ -14,10 +14,11 @@ TextureCubemap::TextureCubemap(Specification const& specification)
     if (specification.arrayFlags & cudaArrayLayered) {
         throw std::invalid_argument("TextureCubemap cannot use layered array flags");
     }
-    CHECK_CUDA(cudaMalloc3DArray(&m_array,
-                                 &specification.format,
-                                 make_cudaExtent(specification.size, specification.size, 6),
-                                 specification.arrayFlags | cudaArrayCubemap));
+    CHECK_CUDA(cudaMalloc3DArray(
+        &m_array,
+        &specification.format,
+        make_cudaExtent(specification.size, specification.size, 6),
+        specification.arrayFlags | cudaArrayCubemap));
 
     cudaResourceDesc resource{};
     resource.resType = cudaResourceTypeArray;

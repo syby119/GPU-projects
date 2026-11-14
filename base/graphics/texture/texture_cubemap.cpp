@@ -79,7 +79,11 @@ uint32_t TextureCubemap::getNativeType() const {
 }
 
 void TextureCubemap::update(
-    void const* data, Texture::ExternalFormat pixelFormat, Texture::PixelType pixelType, Face face, uint32_t level) {
+    void const* data,
+    Texture::ExternalFormat pixelFormat,
+    Texture::PixelType pixelType,
+    Face face,
+    uint32_t level) {
     if (data == nullptr) {
         return;
     }
@@ -122,15 +126,16 @@ void TextureCubemap::update(
     }
     else {
         glBindTexture(GL_TEXTURE_CUBE_MAP, m_handle);
-        glTexSubImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + static_cast<uint32_t>(face),
-                        level,
-                        0,
-                        0,
-                        width,
-                        height,
-                        format,
-                        dataType,
-                        data);
+        glTexSubImage2D(
+            GL_TEXTURE_CUBE_MAP_POSITIVE_X + static_cast<uint32_t>(face),
+            level,
+            0,
+            0,
+            width,
+            height,
+            format,
+            dataType,
+            data);
         glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
     }
 

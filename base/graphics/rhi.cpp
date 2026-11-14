@@ -203,12 +203,13 @@ Viewport RHI::getViewport() {
     GLint glViewportRect[4]{0, 0, 0, 0};
     glGetIntegerv(GL_VIEWPORT, glViewportRect);
 
-    return Viewport(static_cast<float>(glViewportRect[0]),
-                    static_cast<float>(glViewportRect[1]),
-                    static_cast<float>(glViewportRect[2]),
-                    static_cast<float>(glViewportRect[3]),
-                    0.0f,
-                    1.0f);
+    return Viewport(
+        static_cast<float>(glViewportRect[0]),
+        static_cast<float>(glViewportRect[1]),
+        static_cast<float>(glViewportRect[2]),
+        static_cast<float>(glViewportRect[3]),
+        0.0f,
+        1.0f);
 }
 
 void RHI::setViewport(Viewport const& viewport) {
@@ -357,7 +358,11 @@ void RHI::setBlendFuncSeperate(BlendFactor rgbSrc, BlendFactor rgbDst, BlendFact
 }
 
 void RHI::setBlendFuncSeperate(
-    uint32_t index, BlendFactor rgbSrc, BlendFactor rgbDst, BlendFactor alphaSrc, BlendFactor alphaDst) {
+    uint32_t index,
+    BlendFactor rgbSrc,
+    BlendFactor rgbDst,
+    BlendFactor alphaSrc,
+    BlendFactor alphaDst) {
     GLenum const sfactorRGB{toNativeBlendFactor(rgbSrc)};
     GLenum const dfactorRGB{toNativeBlendFactor(rgbDst)};
     GLenum const sfactorAlpha{toNativeBlendFactor(alphaSrc)};

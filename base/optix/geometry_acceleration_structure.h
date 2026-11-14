@@ -9,10 +9,11 @@ class GeometryAccelerationStructure {
 public:
     GeometryAccelerationStructure() = default;
 
-    GeometryAccelerationStructure(DeviceContext const& context,
-                                  OptixAccelBuildOptions options,
-                                  std::span<OptixBuildInput const> inputs,
-                                  cudaStream_t stream = nullptr);
+    GeometryAccelerationStructure(
+        DeviceContext const& context,
+        OptixAccelBuildOptions options,
+        std::span<OptixBuildInput const> inputs,
+        cudaStream_t stream = nullptr);
 
     GeometryAccelerationStructure(GeometryAccelerationStructure&&) noexcept = default;
 

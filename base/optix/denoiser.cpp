@@ -40,40 +40,44 @@ void Denoiser::setup(uint32_t width, uint32_t height, bool tiled, cudaStream_t s
     OptixDenoiserSizes sizes{};
     CHECK_OPTIX(optixDenoiserComputeMemoryResources(m_handle, width, height, &sizes));
     m_state.reallocate(sizes.stateSizeInBytes);
-    m_scratch.reallocate(std::max(
-        {tiled ? sizes.withOverlapScratchSizeInBytes : sizes.withoutOverlapScratchSizeInBytes,
-         sizes.computeIntensitySizeInBytes,
-         sizes.computeAverageColorSizeInBytes}));
-    CHECK_OPTIX(optixDenoiserSetup(m_handle,
-                                   stream,
-                                   width,
-                                   height,
-                                   address(m_state.data()),
-                                   m_state.sizeBytes(),
-                                   address(m_scratch.data()),
-                                   m_scratch.sizeBytes()));
+    m_scratch.reallocate(
+        std::max(
+            {tiled ? sizes.withOverlapScratchSizeInBytes : sizes.withoutOverlapScratchSizeInBytes,
+             sizes.computeIntensitySizeInBytes,
+             sizes.computeAverageColorSizeInBytes}));
+    CHECK_OPTIX(optixDenoiserSetup(
+        m_handle,
+        stream,
+        width,
+        height,
+        address(m_state.data()),
+        m_state.sizeBytes(),
+        address(m_scratch.data()),
+        m_scratch.sizeBytes()));
     CHECK_CUDA(cudaStreamSynchronize(stream));
     m_sizes = sizes;
 }
 
-void Denoiser::invoke(OptixDenoiserParams const& params,
-                      OptixDenoiserGuideLayer const& guide,
-                      std::span<OptixDenoiserLayer const> layers,
-                      cudaStream_t stream,
-                      uint32_t inputOffsetX,
-                      uint32_t inputOffsetY) const {
-    CHECK_OPTIX(optixDenoiserInvoke(m_handle,
-                                    stream,
-                                    &params,
-                                    address(m_state.data()),
-                                    m_state.sizeBytes(),
-                                    &guide,
-                                    layers.data(),
-                                    static_cast<uint32_t>(layers.size()),
-                                    inputOffsetX,
-                                    inputOffsetY,
-                                    address(m_scratch.data()),
-                                    m_scratch.sizeBytes()));
+void Denoiser::invoke(
+    OptixDenoiserParams const& params,
+    OptixDenoiserGuideLayer const& guide,
+    std::span<OptixDenoiserLayer const> layers,
+    cudaStream_t stream,
+    uint32_t inputOffsetX,
+    uint32_t inputOffsetY) const {
+    CHECK_OPTIX(optixDenoiserInvoke(
+        m_handle,
+        stream,
+        &params,
+        address(m_state.data()),
+        m_state.sizeBytes(),
+        &guide,
+        layers.data(),
+        static_cast<uint32_t>(layers.size()),
+        inputOffsetX,
+        inputOffsetY,
+        address(m_scratch.data()),
+        m_scratch.sizeBytes()));
 }
 
 void Denoiser::computeIntensity(OptixImage2D const& input, CUdeviceptr output, cudaStream_t stream) const {

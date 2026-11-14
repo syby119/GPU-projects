@@ -27,13 +27,14 @@ namespace gpu {
 
 inline void logCudaErrorImpl(cudaError_t status, char const* call, char const* file, uint32_t line) {
     if (status != cudaSuccess) {
-        std::fprintf(stderr,
-                     "[CUDA] %s failed(%d) at %s:%u: %s\n",
-                     call,
-                     static_cast<int>(status),
-                     file,
-                     line,
-                     cudaGetErrorString(status));
+        std::fprintf(
+            stderr,
+            "[CUDA] %s failed(%d) at %s:%u: %s\n",
+            call,
+            static_cast<int>(status),
+            file,
+            line,
+            cudaGetErrorString(status));
     }
 }
 

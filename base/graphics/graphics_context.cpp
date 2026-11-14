@@ -31,20 +31,22 @@ GraphicsContext::GraphicsContext(std::pair<int, int> const& minimumVersion)
     };
 
     if (std::find(validVersions.begin(), validVersions.end(), minimumVersion) == validVersions.end()) {
-        std::cerr << std::format("OpenGL {}.{} is not a valid desktop OpenGL version;\n"
-                                 "Using OpenGL {}.{} instead.\n",
-                                 minimumVersion.first,
-                                 minimumVersion.second,
-                                 m_driverVersion.first,
-                                 m_driverVersion.second);
+        std::cerr << std::format(
+            "OpenGL {}.{} is not a valid desktop OpenGL version;\n"
+            "Using OpenGL {}.{} instead.\n",
+            minimumVersion.first,
+            minimumVersion.second,
+            m_driverVersion.first,
+            m_driverVersion.second);
     }
     else if (minimumVersion < m_driverVersion) {
-        std::cerr << std::format("OpenGL {}.{} is below the required version for DSA support;\n"
-                                 "Using OpenGL {}.{} instead.\n",
-                                 minimumVersion.first,
-                                 minimumVersion.second,
-                                 m_driverVersion.first,
-                                 m_driverVersion.second);
+        std::cerr << std::format(
+            "OpenGL {}.{} is below the required version for DSA support;\n"
+            "Using OpenGL {}.{} instead.\n",
+            minimumVersion.first,
+            minimumVersion.second,
+            m_driverVersion.first,
+            m_driverVersion.second);
     }
     else {
         m_driverVersion = minimumVersion;
@@ -79,8 +81,8 @@ void GraphicsContext::init(GLFWwindow* window) {
     std::cout << "OpenGL\n";
     std::cout << std::format("+ version:     {}\n", reinterpret_cast<char const*>(glGetString(GL_VERSION)));
     std::cout << std::format("+ renderer:    {}\n", reinterpret_cast<char const*>(glGetString(GL_RENDERER)));
-    std::cout << std::format("+ glsl:        {}\n",
-                             reinterpret_cast<char const*>(glGetString(GL_SHADING_LANGUAGE_VERSION)));
+    std::cout << std::format(
+        "+ glsl:        {}\n", reinterpret_cast<char const*>(glGetString(GL_SHADING_LANGUAGE_VERSION)));
 
     GLint maxBlockSize{};
     glGetIntegerv(GL_MAX_UNIFORM_BLOCK_SIZE, &maxBlockSize);
@@ -173,13 +175,14 @@ bool GraphicsContext::checkVersion(GLFWwindow* window) {
     return true;
 }
 
-static void APIENTRY debugCallback(GLenum source,
-                                   GLenum type,
-                                   GLuint id,
-                                   GLenum severity,
-                                   GLsizei length,
-                                   GLchar const* message,
-                                   void const* userParam) {
+static void APIENTRY debugCallback(
+    GLenum source,
+    GLenum type,
+    GLuint id,
+    GLenum severity,
+    GLsizei length,
+    GLchar const* message,
+    void const* userParam) {
     // ignore these non-significant error codes
     if (id == 131169 || id == 131185 || id == 131218 || id == 131204) {
         return;

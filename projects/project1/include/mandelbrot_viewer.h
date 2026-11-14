@@ -47,7 +47,8 @@ private:
 
     PlaybackController m_playback;
     HighPrecisionComplex m_startCenter{
-        HighPrecisionFloat{"-1.4184000000000000000000000000000000000000"}, HighPrecisionFloat{0}
+        HighPrecisionFloat{"-1.4184000000000000000000000000000000000000"},
+        HighPrecisionFloat{0}
     };
     HighPrecisionFloat m_startZoom{1035};
 

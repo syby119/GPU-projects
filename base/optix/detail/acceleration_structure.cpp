@@ -46,10 +46,11 @@ static std::vector<uint64_t> topology(std::span<OptixBuildInput const> inputs) {
     return result;
 }
 
-AccelerationStructure::AccelerationStructure(DeviceContext const& context,
-                                             OptixAccelBuildOptions options,
-                                             std::span<OptixBuildInput const> inputs,
-                                             cudaStream_t stream)
+AccelerationStructure::AccelerationStructure(
+    DeviceContext const& context,
+    OptixAccelBuildOptions options,
+    std::span<OptixBuildInput const> inputs,
+    cudaStream_t stream)
     : m_context(context.handle())
     , m_options(options)
     , m_inputCount(static_cast<uint32_t>(inputs.size())) {
@@ -67,18 +68,19 @@ AccelerationStructure::AccelerationStructure(DeviceContext const& context,
     gpu::Buffer<size_t> compacted(1);
     OptixAccelEmitDesc emit{address(compacted.data()), OPTIX_PROPERTY_TYPE_COMPACTED_SIZE};
     bool const allowCompact = (m_options.buildFlags & OPTIX_BUILD_FLAG_ALLOW_COMPACTION) != 0;
-    CHECK_OPTIX(optixAccelBuild(m_context,
-                                stream,
-                                &m_options,
-                                inputs.data(),
-                                m_inputCount,
-                                address(scratch.data()),
-                                scratch.sizeBytes(),
-                                address(m_storage.data()),
-                                m_storage.sizeBytes(),
-                                &m_handle,
-                                allowCompact ? &emit : nullptr,
-                                allowCompact ? 1 : 0));
+    CHECK_OPTIX(optixAccelBuild(
+        m_context,
+        stream,
+        &m_options,
+        inputs.data(),
+        m_inputCount,
+        address(scratch.data()),
+        scratch.sizeBytes(),
+        address(m_storage.data()),
+        m_storage.sizeBytes(),
+        &m_handle,
+        allowCompact ? &emit : nullptr,
+        allowCompact ? 1 : 0));
     CHECK_CUDA(cudaStreamSynchronize(stream));
     if (allowCompact) {
         compacted.copyToHost(&m_compactedSize);
@@ -120,18 +122,19 @@ void AccelerationStructure::update(std::span<OptixBuildInput const> inputs, cuda
     OptixAccelBufferSizes sizes{};
     CHECK_OPTIX(optixAccelComputeMemoryUsage(m_context, &options, inputs.data(), m_inputCount, &sizes));
     gpu::Buffer<std::byte> scratch(sizes.tempUpdateSizeInBytes);
-    CHECK_OPTIX(optixAccelBuild(m_context,
-                                stream,
-                                &options,
-                                inputs.data(),
-                                m_inputCount,
-                                address(scratch.data()),
-                                scratch.sizeBytes(),
-                                address(m_storage.data()),
-                                m_storage.sizeBytes(),
-                                &m_handle,
-                                nullptr,
-                                0));
+    CHECK_OPTIX(optixAccelBuild(
+        m_context,
+        stream,
+        &options,
+        inputs.data(),
+        m_inputCount,
+        address(scratch.data()),
+        scratch.sizeBytes(),
+        address(m_storage.data()),
+        m_storage.sizeBytes(),
+        &m_handle,
+        nullptr,
+        0));
     CHECK_CUDA(cudaStreamSynchronize(stream));
 }
 

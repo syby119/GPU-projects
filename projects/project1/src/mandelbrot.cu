@@ -24,7 +24,11 @@ static __device__ __forceinline__ SampleData makeUnescapedSample(int maxIteratio
 }
 
 static __device__ __forceinline__ SampleData sampleMandelbrot(
-    int x, int y, float subPixelX, float subPixelY, RenderParameters const& parameters
+    int x,
+    int y,
+    float subPixelX,
+    float subPixelY,
+    RenderParameters const& parameters
     /* add additional arguments if necessary */) {
     // Match the reference's FP32 sub-pixel addition before widening to FP64.
     double const fragmentX = static_cast<double>(static_cast<float>(x) + 0.5f + subPixelX);
@@ -49,8 +53,10 @@ static __device__ __forceinline__ float3 shade(SampleData sample, RenderParamete
     return parameters.palette.sample(sample.smoothIteration);
 }
 
-__global__ void renderMandelbrotSetKernel(float4* __restrict__ output, RenderParameters parameters
-                                          /* add additional arguments if necessary */) {
+__global__ void renderMandelbrotSetKernel(
+    float4* __restrict__ output,
+    RenderParameters parameters
+    /* add additional arguments if necessary */) {
     int const x = static_cast<int>(blockIdx.x * blockDim.x + threadIdx.x);
     int const y = static_cast<int>(blockIdx.y * blockDim.y + threadIdx.y);
     if (x >= parameters.width || y >= parameters.height) {

@@ -5,7 +5,10 @@ repos:
     hooks:
       - id: trailing-whitespace
         args: [--markdown-linebreak-ext=md]
+        # P6 PPM pixel data must not be modified by text fixers.
+        exclude: ^projects/project3/assets/dataset/images/.*\.ppm$
       - id: end-of-file-fixer
+        exclude: ^projects/project3/assets/dataset/images/.*\.ppm$
 
   - repo: https://github.com/pocc/pre-commit-hooks
     rev: v1.3.5
@@ -13,4 +16,10 @@ repos:
       - id: clang-format
         args: [-i, --style=file]
         types_or: [c, c++, cuda]
-        files: \.(c|cc|cpp|cppm|cxx|h|hpp|hxx|cu|cuh)$
+        files: \.(cpp|hpp|h|cc|cxx|cu|cuh)$
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.17.4
+    hooks:
+      - id: ruff-format
+        types_or: [python, pyi]

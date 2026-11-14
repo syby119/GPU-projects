@@ -12,10 +12,11 @@ public:
 
     static Module adopt(OptixModule handle) noexcept;
 
-    Module(DeviceContext const& context,
-           OptixModuleCompileOptions const& moduleOptions,
-           OptixPipelineCompileOptions const& pipelineOptions,
-           std::span<char const> input);
+    Module(
+        DeviceContext const& context,
+        OptixModuleCompileOptions const& moduleOptions,
+        OptixPipelineCompileOptions const& pipelineOptions,
+        std::span<char const> input);
 
     Module(Module&& other) noexcept;
 

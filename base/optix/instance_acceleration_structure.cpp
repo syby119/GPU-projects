@@ -5,12 +5,13 @@
 
 namespace optix {
 
-OptixInstance makeInstance(OptixTraversableHandle traversable,
-                           std::array<float, 12> const& transform,
-                           uint32_t instanceId,
-                           uint32_t sbtOffset,
-                           uint32_t visibilityMask,
-                           uint32_t flags) noexcept {
+OptixInstance makeInstance(
+    OptixTraversableHandle traversable,
+    std::array<float, 12> const& transform,
+    uint32_t instanceId,
+    uint32_t sbtOffset,
+    uint32_t visibilityMask,
+    uint32_t flags) noexcept {
     OptixInstance instance{};
     std::copy(transform.begin(), transform.end(), instance.transform);
     instance.instanceId = instanceId;
@@ -29,10 +30,11 @@ static OptixBuildInput buildInput(gpu::Buffer<OptixInstance> const& instances) {
     return input;
 }
 
-InstanceAccelerationStructure::InstanceAccelerationStructure(DeviceContext const& context,
-                                                             OptixAccelBuildOptions options,
-                                                             std::span<OptixInstance const> instances,
-                                                             cudaStream_t stream)
+InstanceAccelerationStructure::InstanceAccelerationStructure(
+    DeviceContext const& context,
+    OptixAccelBuildOptions options,
+    std::span<OptixInstance const> instances,
+    cudaStream_t stream)
     : m_instances(instances.size()) {
     m_instances.copyFromHost(instances);
     OptixBuildInput const input = buildInput(m_instances);

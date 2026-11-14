@@ -32,12 +32,13 @@ public:
     }
 
     // Asynchronous. Use one stream and keep images alive until that stream completes.
-    void invoke(OptixDenoiserParams const& params,
-                OptixDenoiserGuideLayer const& guide,
-                std::span<OptixDenoiserLayer const> layers,
-                cudaStream_t stream = nullptr,
-                uint32_t inputOffsetX = 0,
-                uint32_t inputOffsetY = 0) const;
+    void invoke(
+        OptixDenoiserParams const& params,
+        OptixDenoiserGuideLayer const& guide,
+        std::span<OptixDenoiserLayer const> layers,
+        cudaStream_t stream = nullptr,
+        uint32_t inputOffsetX = 0,
+        uint32_t inputOffsetY = 0) const;
 
     void computeIntensity(OptixImage2D const& input, CUdeviceptr output, cudaStream_t stream = nullptr) const;
 
