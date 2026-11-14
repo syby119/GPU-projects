@@ -20,6 +20,8 @@ endif()
 find_path(STB_IMAGE_WRITE_INCLUDE_DIR NAMES stb_image_write.h REQUIRED)
 
 set(PROJECT1_BASE_FILES
+    common/timer.h
+    common/utility.h
     gpu/buffer.h
     gpu/timer.h
     gpu/utility.h)
@@ -43,7 +45,6 @@ if(NOT PROJECT1_OFFLINE_ONLY)
         common/input/input.h
         common/input/input_mapping.cpp
         common/input/input_mapping.h
-        common/timer.h
         common/window.cpp
         common/window.h
         gpu/graphics_resource/graphics_buffer_resource.h
@@ -122,6 +123,15 @@ if(PROJECT1_OFFLINE_ONLY)
 else()
     target_link_libraries(project1 PRIVATE glad::glad glfw glm::glm)
 endif()
+
+if(WIN32 AND NOT PROJECT1_OFFLINE_ONLY)
+    add_custom_command(TARGET project1 POST_BUILD
+        COMMAND "${CMAKE_COMMAND}" -E copy_if_different
+                $<TARGET_RUNTIME_DLLS:project1> "$<TARGET_FILE_DIR:project1>"
+        COMMAND_EXPAND_LISTS
+        VERBATIM)
+endif()
+
 set_source_files_properties(
     "${CMAKE_CURRENT_SOURCE_DIR}/src/mandelbrot.cu"
     PROPERTIES COMPILE_OPTIONS "--expt-relaxed-constexpr")
