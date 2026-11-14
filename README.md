@@ -1,5 +1,7 @@
 # GPU-projects
 
+[English](README.md) | [简体中文](README.zh-CN.md)
+
 GPU computing assignments and projects for graduate students. The repository
 uses CMake to build CUDA examples, standalone assignments, and a reusable set
 of CPU, GPU, and OpenGL support modules.
@@ -134,13 +136,14 @@ usage, command-line options, controls, and offline-build details.
 
 ## Project 2: OptiX ray tracer
 
-`projects/project2` is an OptiX ray tracer starter for a scene with Lucy models,
-spheres, and a skybox. Students complete the marked TODOs to render the scene;
-the starter writes a blank image. It supports an OpenGL viewer and offline PNG
-mode. The `PROJECT2_OFFLINE_ONLY` CMake option removes the viewer's OpenGL and
-GLFW dependencies. Project 2 requires a compatible NVIDIA GPU, CUDA, and OptiX
-9.1. See the [project2 README](projects/project2/README.md) for build and usage
-details and [ASSIGNMENT.md](projects/project2/ASSIGNMENT.md) for the tasks.
+`projects/project2` renders three Lucy models, a ground sphere, a randomized
+sphere field, and a skybox with OptiX. It provides a progressive OpenGL viewer
+and offline PNG rendering. Offline mode has configurable sample count and
+denoising; the viewer has a denoiser toggle. The `PROJECT2_OFFLINE_ONLY` CMake
+option removes the viewer's OpenGL and GLFW dependencies. Project 2 requires a
+compatible NVIDIA GPU, CUDA, and OptiX 9.1. See the
+[project2 README](projects/project2/README.md) for
+usage, command-line options, controls, and offline-build details.
 
 ## Project 3: AlexNet inference
 

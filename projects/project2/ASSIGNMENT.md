@@ -1,5 +1,7 @@
 # Project 2 Assignment: OptiX Ray Tracer
 
+[English](ASSIGNMENT.md) | [简体中文](ASSIGNMENT.zh-CN.md)
+
 ## 1. Overview
 
 Build an OptiX ray tracer. The finished `project2` program must render the

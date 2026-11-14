@@ -1,5 +1,7 @@
 # Project 2: OptiX ray tracer
 
+[English](README.md) | [简体中文](README.zh-CN.md)
+
 `project2` uses OptiX to render three instances of Lucy, a ground sphere, a
 randomized sphere field, and a six-face skybox. It supports an interactive
 OpenGL viewer and offline PNG rendering. See the repository-wide

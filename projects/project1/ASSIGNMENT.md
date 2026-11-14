@@ -1,5 +1,7 @@
 # Project 1 Assignment: CUDA Mandelbrot Renderer
 
+[English](ASSIGNMENT.md) | [简体中文](ASSIGNMENT.zh-CN.md)
+
 ## 1. Overview
 
 Complete the starter implementation of `project1`, a CUDA Mandelbrot-set

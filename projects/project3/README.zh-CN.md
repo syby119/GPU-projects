@@ -4,7 +4,7 @@
 
 `project3` 使用 CUDA 执行 AlexNet 批量推理，支持使用合成图像进行性能测试，
 以及在真实图像上对比 GPU 与 CPU 参考的预测。环境配置见仓库
-[README](../../README.md)，实现与优化要求见
+[README](../../README.zh-CN.md)，实现与优化要求见
 [ASSIGNMENT.zh-CN.md](ASSIGNMENT.zh-CN.md)。学生需要实现并优化 GPU 推理流程。
 
 ![AlexNet 网络结构](images/alexnet_architecture.png)
