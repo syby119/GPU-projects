@@ -7,6 +7,7 @@
 #include <nvml.h>
 
 #include <cstdint>
+#include <vector>
 
 // Returns 0 when NVML cannot provide the CUDA core count.
 static uint32_t getCudaCoreCount(int device) {
@@ -28,12 +29,12 @@ static uint32_t getCudaCoreCount(int device) {
     return coreCount;
 }
 
-static int convertSmVerToCudaCores(int major, int minor) {
+static uint32_t convertSmVerToCudaCores(int major, int minor) {
     // This table and its fallback behavior match CUDA Samples'
     // _ConvertSMVer2Cores helper. CUDA does not expose cores-per-SM directly.
     struct SmToCores {
-        int sm;
-        int cores;
+        uint32_t sm;
+        uint32_t cores;
     };
     constexpr SmToCores kCoresPerSm[] = {
         {0x30, 192}, {0x32, 192}, {0x35, 192}, {0x37, 192}, {0x50, 128}, {0x52, 128}, {0x53, 128},
@@ -42,8 +43,10 @@ static int convertSmVerToCudaCores(int major, int minor) {
         {0xA7, 128}, {0xB0, 128}, {0xC0, 128}, {0xC1, 128},
     };
 
+    uint32_t const smVersion = (static_cast<uint32_t>(major) << 4) + static_cast<uint32_t>(minor);
+
     for (SmToCores const& smToCores : kCoresPerSm) {
-        if (smToCores.sm == ((major << 4) + minor)) {
+        if (smToCores.sm == smVersion) {
             return smToCores.cores;
         }
     }
@@ -81,16 +84,16 @@ void printDeviceInfo(int device) {
         println("  CUDA Cores per Multiprocessor:                  {}", coresPerSm);
         println("  Total CUDA Cores:                               {} (NVML)", totalCudaCores);
     }
-    else if (int coresPerSm = convertSmVerToCudaCores(property.major, property.minor); coresPerSm > 0) {
-        int const totalCudaCores = property.multiProcessorCount * coresPerSm;
+    else if (uint32_t const coresPerSm = convertSmVerToCudaCores(property.major, property.minor); coresPerSm > 0) {
+        uint32_t const totalCudaCores = static_cast<uint32_t>(property.multiProcessorCount) * coresPerSm;
         println("  CUDA Cores per Multiprocessor:                  {}", coresPerSm);
         println("  Total CUDA Cores:                               {} (architecture table)", totalCudaCores);
     }
     else {
-        constexpr int defaultCoresPerSm = 128; // Fallback value for unknown SM versions
-        int const totalCudaCores = property.multiProcessorCount * defaultCoresPerSm;
-        println("  CUDA Cores per Multiprocessor Estimated:        {}", defaultCoresPerSm);
-        println("  Total CUDA Cores Estimated:                     {}", totalCudaCores);
+        constexpr uint32_t defaultCoresPerSm = 128; // Fallback value for unknown SM versions
+        uint32_t const totalCudaCores = static_cast<uint32_t>(property.multiProcessorCount) * defaultCoresPerSm;
+        println("  CUDA Cores per Multiprocessor:                  {} (estimated)", defaultCoresPerSm);
+        println("  Total CUDA Cores:                               {} (estimated)", totalCudaCores);
     }
 
     int singleToDoublePrecisionPerfRatio;
@@ -236,9 +239,10 @@ void printPeerAccessInfo(int deviceCount) {
         return;
     }
 
-    cudaDeviceProp properties[64];
-    int gpuIds[64];
-    int peerCapableGpuCount = 0;
+    std::vector<cudaDeviceProp> properties(deviceCount);
+    std::vector<int> gpuIds;
+    gpuIds.reserve(deviceCount);
+
     for (int device = 0; device < deviceCount; ++device) {
         CHECK_CUDA(cudaGetDeviceProperties(&properties[device], device));
         if ((properties[device].major >= 2)
@@ -246,27 +250,25 @@ void printPeerAccessInfo(int deviceCount) {
             && properties[device].tccDriver
 #endif
         ) {
-            gpuIds[peerCapableGpuCount++] = device;
+            gpuIds.push_back(device);
         }
     }
 
-    if (peerCapableGpuCount >= 2) {
-        for (int source = 0; source < peerCapableGpuCount; ++source) {
-            for (int destination = 0; destination < peerCapableGpuCount; ++destination) {
-                if (gpuIds[source] == gpuIds[destination]) {
-                    continue;
-                }
-
-                int canAccessPeer;
-                CHECK_CUDA(cudaDeviceCanAccessPeer(&canAccessPeer, gpuIds[source], gpuIds[destination]));
-                println(
-                    "> Peer Access from {} (GPU{}) -> {} (GPU{}) : {}",
-                    properties[gpuIds[source]].name,
-                    gpuIds[source],
-                    properties[gpuIds[destination]].name,
-                    gpuIds[destination],
-                    canAccessPeer ? "Yes" : "No");
+    for (int srcId : gpuIds) {
+        for (int dstId : gpuIds) {
+            if (srcId == dstId) {
+                continue;
             }
+
+            int canAccessPeer;
+            CHECK_CUDA(cudaDeviceCanAccessPeer(&canAccessPeer, srcId, dstId));
+            println(
+                "> Peer Access from {} (GPU{}) -> {} (GPU{}) : {}",
+                properties[srcId].name,
+                srcId,
+                properties[dstId].name,
+                dstId,
+                canAccessPeer ? "Yes" : "No");
         }
     }
 }
