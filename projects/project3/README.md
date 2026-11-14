@@ -186,6 +186,10 @@ copies it beside the executable.
 
 ## Submission
 
+Write a short report at `projects/project3/report/REPORT.md` covering the
+implementation, validation, profiling observations and performance comparisons.
+See [ASSIGNMENT.md](ASSIGNMENT.md) for report requirements.
+
 Build the source package from a configured repository build:
 
 ```powershell
@@ -200,6 +204,6 @@ cmake --build --preset linux-gcc-release-vcpkg --target submit_project3
 
 The archive is written to
 `out/build/<preset>/projects/project3/submission/project3.zip`. It includes
-Project 3 source and the shared `base/` headers used by the project. It excludes
-`assets/`, `images/` and `scripts/`. Profiling results are not required for
-submission.
+Project 3 source, the shared `base/` headers used by the project, and the
+`report/` directory. It excludes `assets/`, `images/` and `scripts/`. Raw Nsight
+capture files are not required for submission.

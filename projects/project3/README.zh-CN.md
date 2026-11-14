@@ -173,6 +173,9 @@ cmake --build out/build/project3-linux --parallel
 
 ## 提交打包
 
+在 `projects/project3/report/REPORT.md` 中撰写简短报告，说明实现、正确性验证、
+profiling 分析和性能对比。报告要求见 [ASSIGNMENT.zh-CN.md](ASSIGNMENT.zh-CN.md)。
+
 完成仓库构建配置后，使用以下目标生成源码包：
 
 ```powershell
@@ -186,5 +189,5 @@ cmake --build --preset linux-gcc-release-vcpkg --target submit_project3
 ```
 
 压缩包输出到 `out/build/<preset>/projects/project3/submission/project3.zip`，
-包含 Project 3 源码及项目使用的共享 `base/` 头文件，
-不包含 `assets/`、`images/` 和 `scripts/`。无需提交 profiling 结果。
+包含 Project 3 源码、项目使用的共享 `base/` 头文件和 `report/` 目录，
+不包含 `assets/`、`images/` 和 `scripts/`。无需提交 Nsight 原始采集文件。

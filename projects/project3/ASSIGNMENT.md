@@ -278,15 +278,35 @@ Submit:
 - completed source under `projects/project3`, including `AlexNetGpu` and
   `runGpuInference`;
 - the CMake configuration and shared `base/` headers required to rebuild the
-  project.
+  project;
+- a short report at `projects/project3/report/REPORT.md`.
+
+The report must describe:
+
+- the hardware/software environment and benchmark settings;
+- the GPU implementation and stream pipeline, including storage ownership and
+  synchronization;
+- quick and full validation results, including CPU/GPU prediction agreement
+  and ground-truth accuracy;
+- the bottlenecks observed with Nsight Systems and Nsight Compute, the changes
+  made in response, and the measurements supporting those changes;
+- end-to-end time and throughput for the naive baseline, stream pipeline,
+  optimized kernels and final tuned configuration, with batch size and stream
+  count stated for each comparison;
+- batch-size/stream-count comparisons, final speedup against the naive GPU
+  baseline, and any known limitations.
+
+Place any supporting figures in the same `report/` directory. The submission
+target includes the complete directory in `project3.zip`.
 
 Do not submit `assets/`, `images/` or `scripts/`. The supplied model and
 validation dataset are loaded separately through `--assets DIR` when running
 the extracted project.
 
-Profiling results are for local analysis and optimization. You do not need to
-submit Nsight reports, timeline screenshots, metric exports or prediction CSVs.
-Keep profiling output in `nsys_profile/` or `ncu_profile/`, outside the submission.
+Summarize profiling observations and key measurements in the report. Raw
+Nsight capture files, separate timeline screenshots, metric exports and
+prediction CSVs are not required. Keep raw profiling output in `nsys_profile/`
+or `ncu_profile/`, outside the submission.
 
 Do not include build directories, package-manager checkouts, generated Visual
 Studio files or machine-specific artifacts in the source submission. From a

@@ -236,13 +236,28 @@ CPU 推理作为正确性参考，不计入 GPU benchmark。
 需要提交：
 
 - `projects/project3` 下补全后的源代码，包括 `AlexNetGpu` 和 `runGpuInference`；
-- 重建项目所需的 CMake 配置和共享 `base/` 头文件。
+- 重建项目所需的 CMake 配置和共享 `base/` 头文件；
+- 位于 `projects/project3/report/REPORT.md` 的简短报告。
+
+报告需要说明：
+
+- 软硬件环境与 benchmark 设置；
+- GPU 实现与 stream 流水线，包括存储资源的归属和同步方式；
+- 快速与完整验证的结果，包括 CPU/GPU 预测一致率及相对真实标签的准确率；
+- 使用 Nsight Systems 和 Nsight Compute 观察到的瓶颈、据此进行的修改，
+  以及支持这些修改的测量数据；
+- 朴素基线、stream 流水线、内核优化和最终参数调优各阶段的端到端耗时与吞吐量，
+  并注明各次比较使用的 batch size 和 stream 数量；
+- batch size / stream 数量的对比、相对朴素 GPU 基线的最终加速比，以及已知限制。
+
+报告所需的配图放在同一个 `report/` 目录下。提交目标会将整个目录打入 `project3.zip`。
 
 不要提交 `assets/`、`images/` 和 `scripts/`。运行解压后的项目时，
 通过 `--assets DIR` 单独加载提供的模型与验证数据集。
 
-Profiling 结果用于本地分析与优化，无需提交 Nsight 报告、时间线截图、指标导出或预测 CSV。
-Profiling 输出保留在 `nsys_profile/` 或 `ncu_profile/`，不放入提交包。
+在报告中总结 profiling 观察和关键测量数据。无需另外提交 Nsight 原始采集文件、
+时间线截图、指标导出或预测 CSV。原始 profiling 输出保留在 `nsys_profile/`
+或 `ncu_profile/`，不放入提交包。
 
 源码提交中不要包含构建目录、包管理器的检出目录、自动生成的 Visual Studio 文件或
 与本机环境有关的产物。完成仓库构建配置后，使用提供的提交目标，提交生成的 `project3.zip`。
