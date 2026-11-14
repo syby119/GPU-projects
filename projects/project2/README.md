@@ -128,7 +128,7 @@ denoising enabled. For example:
 | Option | Meaning |
 | --- | --- |
 | `--offline` | Render one PNG; online mode is the default. |
-| `--assets <path>` | Assets root for the model, skybox and OptiX IR; default: `assets/` beside the executable. Applies to both modes. |
+| `--assets <path>` | Assets root for the model, skybox and OptiX IR; default: `assets/` beside the executable. |
 | `--width <pixels>` | Positive image or window width. |
 | `--height <pixels>` | Positive image or window height. |
 | `--samples <count>` | Positive offline sample count; default: `64`. |
