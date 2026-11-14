@@ -16,6 +16,10 @@ Testing/
 /vcpkg_installed/
 /.vcpkg-binary-cache/
 
+# Profiler reports
+nsys_profile/
+ncu_profile/
+
 # IDE and editor state
 .vs/
 .vscode/
@@ -31,3 +35,8 @@ CMakeUserPresets.json
 .cache/
 .DS_Store
 Thumbs.db
+
+# Python helper scripts
+__pycache__/
+.ruff_cache/
+*.py[cod]
