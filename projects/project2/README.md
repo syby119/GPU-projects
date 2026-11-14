@@ -86,7 +86,15 @@ The build generates `assets/optix/project2.optixir` from
 `src/optix_programs.cu`. CMake checks the timestamps of
 `src/optix_programs.cu` and `include/launch_params.h` and rebuilds the OptiX IR
 when either file changes. The build copies the IR, `assets/models/lucy.obj`,
-and the six skybox images into the executable's `assets/` directory.
+and the six skybox images into the executable's `assets/` directory when scene
+assets are present. Source submissions can build without the model and images;
+the generated IR is always staged beside the executable.
+
+Set `PROJECT2_OPTIX_IR` at configure time to choose another IR output file,
+for example `-DPROJECT2_OPTIX_IR=/path/to/project2/assets/optix/project2.optixir`.
+By default, it is generated under `assets/optix/` in the project's build
+directory. Build `project2_optix_ir` to generate only the IR, or `project2` to
+build the complete program.
 
 ## Online mode
 
@@ -120,6 +128,7 @@ denoising enabled. For example:
 | Option | Meaning |
 | --- | --- |
 | `--offline` | Render one PNG; online mode is the default. |
+| `--assets <path>` | Assets root for the model, skybox and OptiX IR; default: `assets/` beside the executable. Applies to both modes. |
 | `--width <pixels>` | Positive image or window width. |
 | `--height <pixels>` | Positive image or window height. |
 | `--samples <count>` | Positive offline sample count; default: `64`. |
@@ -132,6 +141,17 @@ Without `--output`, the filename is
 are resolved from the current working directory. `--samples` and `--denoiser`
 are accepted in online mode, but do not change its startup behavior; use
 Space to control viewer denoising. `--output` requires `--offline`.
+
+Use `--assets` to select an external directory containing `models/lucy.obj`,
+the six images under `skyboxrt/`, and `optix/project2.optixir`. Set
+`PROJECT2_OPTIX_IR` to that directory's `optix/project2.optixir` when configuring
+the build. Explicit relative asset paths are resolved from the current
+working directory. For example:
+
+```sh
+./project2 --offline --assets /path/to/project2/assets \
+    --width 640 --height 360 --samples 64 --output render.png
+```
 
 ## Building without OpenGL
 

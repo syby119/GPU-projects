@@ -28,7 +28,9 @@ repository's CMake presets, `project2` executable target, and
 `submit_project2` source-package target.
 
 The supplied `assets/models/lucy.obj` and `assets/skyboxrt/` images are part of
-the scene. Keep asset lookup independent of the process's working directory.
+the scene. Default asset lookup must be independent of the process's working
+directory. Support `--assets DIR` for an external runtime asset directory;
+explicit relative paths are resolved from the current working directory.
 
 ## 4. Required work
 
@@ -111,6 +113,10 @@ Build the OptiX IR from `src/optix_programs.cu` as part of the CMake build.
 Place it under `assets/optix/` beside the executable together with the Lucy
 OBJ and skybox images. Use the first visible GPU's compute capability for the
 IR target when it can be queried, falling back to `compute_75` when it cannot.
+When source assets are absent, skip copying the model and images while still
+building and staging the IR. Allow `PROJECT2_OPTIX_IR` to select the generated
+IR output file, defaulting to `assets/optix/project2.optixir` under the project's
+build directory. `--assets` selects the root for the model, skybox and IR.
 
 Support `PROJECT2_OFFLINE_ONLY=ON` without GLAD, GLFW, or a window-system
 development stack. The `submit_project2` target packages the project source and
@@ -141,6 +147,8 @@ A correct implementation must satisfy all of the following:
 4. Increasing the offline sample count reduces Monte Carlo noise in raw output.
 5. The executable loads assets and OptiX IR from its adjacent `assets/`
    directory when launched by path, including from another working directory.
+   `--assets DIR` overrides the root directory for the model, skybox and IR
+   in both modes.
 6. An offline-only build renders without initializing OpenGL or GLFW.
 7. `submit_project2` creates a source archive without `assets/`.
 
@@ -174,7 +182,7 @@ If you implement the denoising bonus, describe it and its validation in the
 report.
 
 Do not submit `assets/`. The provided Lucy model and skybox images are supplied
-separately for building and running the project.
+separately and can be selected with `--assets DIR` when running the project.
 
 Place supporting screenshots in the same `report/` directory. The submission
 target includes that directory when present.

@@ -74,6 +74,7 @@ if(NOT PROJECT2_OFFLINE_ONLY)
         common/input/input.cpp
         common/input/input.h
         common/input/input_mapping.cpp
+        common/input/input_mapping.h
         common/event/event.h
         common/event/event_dispatcher.h
         common/event/event_queue.h
@@ -133,10 +134,14 @@ else()
     message(STATUS "nvidia-smi not found; using compute_75")
 endif()
 
-set(PROJECT2_OPTIX_IR "${CMAKE_CURRENT_BINARY_DIR}/assets/optix/project2.optixir")
+set(PROJECT2_OPTIX_IR "${CMAKE_CURRENT_BINARY_DIR}/assets/optix/project2.optixir"
+    CACHE FILEPATH "Output path for the generated Project 2 OptiX IR")
+get_filename_component(PROJECT2_OPTIX_IR "${PROJECT2_OPTIX_IR}" ABSOLUTE
+                       BASE_DIR "${CMAKE_CURRENT_BINARY_DIR}")
+get_filename_component(PROJECT2_OPTIX_IR_DIRECTORY "${PROJECT2_OPTIX_IR}" DIRECTORY)
 add_custom_command(
     OUTPUT "${PROJECT2_OPTIX_IR}"
-    COMMAND "${CMAKE_COMMAND}" -E make_directory "${CMAKE_CURRENT_BINARY_DIR}/assets/optix"
+    COMMAND "${CMAKE_COMMAND}" -E make_directory "${PROJECT2_OPTIX_IR_DIRECTORY}"
     COMMAND "${CUDAToolkit_NVCC_EXECUTABLE}" --optix-ir --std=c++17
             "--gpu-architecture=${PROJECT2_OPTIX_GPU_ARCH}"
             "-I${OPTIX_INCLUDE_DIR}"
@@ -175,9 +180,13 @@ target_include_directories(project2 PRIVATE
     "${STB_IMAGE_WRITE_INCLUDE_DIR}")
 target_link_libraries(project2 PRIVATE
     CUDA::cudart tinyobjloader::tinyobjloader glm::glm ${CMAKE_DL_LIBS})
+if(IS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/assets")
+    add_custom_command(TARGET project2 POST_BUILD
+        COMMAND "${CMAKE_COMMAND}" -E copy_directory
+                "${CMAKE_CURRENT_SOURCE_DIR}/assets" "$<TARGET_FILE_DIR:project2>/assets"
+        VERBATIM)
+endif()
 add_custom_command(TARGET project2 POST_BUILD
-    COMMAND "${CMAKE_COMMAND}" -E copy_directory
-            "${CMAKE_CURRENT_SOURCE_DIR}/assets" "$<TARGET_FILE_DIR:project2>/assets"
     COMMAND "${CMAKE_COMMAND}" -E make_directory "$<TARGET_FILE_DIR:project2>/assets/optix"
     COMMAND "${CMAKE_COMMAND}" -E copy_if_different
             "${PROJECT2_OPTIX_IR}" "$<TARGET_FILE_DIR:project2>/assets/optix/project2.optixir"

@@ -22,6 +22,7 @@ struct CommandLineOptions {
     uint32_t samples{64};
     bool denoiser{true};
     std::filesystem::path outputPath;
+    std::filesystem::path assetRootDir;
 };
 
 static uint32_t parsePositiveUint32(std::string_view value, std::string_view option) {
@@ -34,7 +35,7 @@ static uint32_t parsePositiveUint32(std::string_view value, std::string_view opt
 }
 
 static CommandLineOptions parseCommandLine(int argc, char* argv[]) {
-    CommandLineOptions options;
+    CommandLineOptions options{.assetRootDir = std::filesystem::absolute(argv[0]).parent_path() / "assets"};
     for (int index = 1; index < argc; ++index) {
         if (std::string_view(argv[index]) == "--offline") {
             options.offline = true;
@@ -51,7 +52,7 @@ static CommandLineOptions parseCommandLine(int argc, char* argv[]) {
             continue;
         }
         if (option != "--width" && option != "--height" && option != "--output" && option != "--samples" &&
-            option != "--denoiser") {
+            option != "--denoiser" && option != "--assets") {
             throw std::invalid_argument("Unknown option: " + std::string(option));
         }
         if (index >= argc) {
@@ -72,6 +73,12 @@ static CommandLineOptions parseCommandLine(int argc, char* argv[]) {
                 throw std::invalid_argument("--denoiser must be on, off, 1, or 0");
             }
             options.denoiser = value == "on" || value == "1";
+        }
+        else if (option == "--assets") {
+            if (value.empty()) {
+                throw std::invalid_argument("--assets must not be empty");
+            }
+            options.assetRootDir = value;
         }
         else {
             if (value.empty()) {
@@ -105,6 +112,7 @@ static void printUsage() {
               << "--offline: write one PNG without opening a window.\n\n";
 #endif
     std::cout << "Options:\n"
+              << "  --assets <path>     Asset directory (default: assets/ beside the executable)\n"
               << "  --width <pixels>    Image/window width\n"
               << "  --height <pixels>   Image/window height\n"
               << "  --output <path>     Offline PNG path (default pattern):\n"
@@ -131,7 +139,6 @@ int main(int argc, char* argv[]) {
         }
 #endif
 
-        std::filesystem::path const executableDir = std::filesystem::absolute(argv[0]).parent_path();
         if (options.offline) {
             renderOptixOffline({
                 .width = options.width,
@@ -139,7 +146,7 @@ int main(int argc, char* argv[]) {
                 .samples = options.samples,
                 .denoiser = options.denoiser,
                 .outputPath = options.outputPath,
-                .assetRootDir = executableDir / "assets",
+                .assetRootDir = options.assetRootDir,
             });
         }
 #ifndef PROJECT2_OFFLINE_ONLY
@@ -156,7 +163,7 @@ int main(int argc, char* argv[]) {
                     .msaa = false,
                     .driverVersion = {4, 5},
                 },
-                .assetRootDir = executableDir / "assets",
+                .assetRootDir = options.assetRootDir,
             });
             viewer.run();
         }
