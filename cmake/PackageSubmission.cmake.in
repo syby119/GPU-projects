@@ -4,7 +4,12 @@ file(MAKE_DIRECTORY "@PROJECT_SUBMISSION_STAGING_DIR@")
 file(COPY "@PROJECT_SUBMISSION_SOURCE_DIR@/CMakeLists.txt"
      DESTINATION "@PROJECT_SUBMISSION_STAGING_DIR@")
 
-foreach(project_submission_directory IN ITEMS include src)
+set(project_submission_asset_dirs "@PROJECT_SUBMISSION_ASSET_DIRS@")
+set(project_submission_exclude_scripts "@PROJECT_SUBMISSION_EXCLUDE_SCRIPTS@")
+foreach(project_submission_directory IN ITEMS include src scripts ${project_submission_asset_dirs})
+    if(project_submission_exclude_scripts AND project_submission_directory STREQUAL "scripts")
+        continue()
+    endif()
     if(IS_DIRECTORY "@PROJECT_SUBMISSION_SOURCE_DIR@/${project_submission_directory}")
         file(COPY "@PROJECT_SUBMISSION_SOURCE_DIR@/${project_submission_directory}/"
              DESTINATION "@PROJECT_SUBMISSION_STAGING_DIR@/${project_submission_directory}")

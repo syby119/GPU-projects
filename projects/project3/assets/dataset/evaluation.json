@@ -1,0 +1,630 @@
+{
+  "dataset": "Original ImageNet validation images retained in Imagenette val; ten-class subset, full 1000-way classifier",
+  "source_url": "https://s3.amazonaws.com/fast-ai-imageclas/imagenette2-320.tgz",
+  "archive_sha256": "569b4497c98db6dd29f335d1f109cf315fe127053cedf69010d047f0188e158c",
+  "class_mapping_url": "https://storage.googleapis.com/download.tensorflow.org/data/imagenet_class_index.json",
+  "class_mapping_sha256": "a1e7a966a1f601d39e4b43e119b3e7dd4a2ad3ea08cf69847cbaf021013767bc",
+  "label_source": "Original dataset WNID folder annotations, mapped to ImageNet-1K [0,999]",
+  "selection_rule": "Only val/ILSVRC2012_val_* original validation images",
+  "classes": 1000,
+  "observed_classes": 10,
+  "images": 100,
+  "per_class": 10,
+  "seed": 42,
+  "cpu_check_indices": [
+    0,
+    10,
+    20,
+    30,
+    40,
+    50,
+    60,
+    70,
+    80,
+    90
+  ],
+  "pillow": "13.0.0",
+  "preprocessing": "RGB, Pillow bilinear resize short side 256; C++ performs center crop 224 and normalization",
+  "samples": [
+    {
+      "image": "images/000000.ppm",
+      "source": "imagenette2-320/val/n02979186/ILSVRC2012_val_00035160.JPEG",
+      "ground_truth": 482,
+      "ground_truth_name": "cassette player"
+    },
+    {
+      "image": "images/000001.ppm",
+      "source": "imagenette2-320/val/n02979186/ILSVRC2012_val_00045110.JPEG",
+      "ground_truth": 482,
+      "ground_truth_name": "cassette player"
+    },
+    {
+      "image": "images/000002.ppm",
+      "source": "imagenette2-320/val/n02979186/ILSVRC2012_val_00042482.JPEG",
+      "ground_truth": 482,
+      "ground_truth_name": "cassette player"
+    },
+    {
+      "image": "images/000003.ppm",
+      "source": "imagenette2-320/val/n02979186/ILSVRC2012_val_00035751.JPEG",
+      "ground_truth": 482,
+      "ground_truth_name": "cassette player"
+    },
+    {
+      "image": "images/000004.ppm",
+      "source": "imagenette2-320/val/n02979186/ILSVRC2012_val_00020400.JPEG",
+      "ground_truth": 482,
+      "ground_truth_name": "cassette player"
+    },
+    {
+      "image": "images/000005.ppm",
+      "source": "imagenette2-320/val/n02979186/ILSVRC2012_val_00043121.JPEG",
+      "ground_truth": 482,
+      "ground_truth_name": "cassette player"
+    },
+    {
+      "image": "images/000006.ppm",
+      "source": "imagenette2-320/val/n02979186/ILSVRC2012_val_00035482.JPEG",
+      "ground_truth": 482,
+      "ground_truth_name": "cassette player"
+    },
+    {
+      "image": "images/000007.ppm",
+      "source": "imagenette2-320/val/n02979186/ILSVRC2012_val_00008651.JPEG",
+      "ground_truth": 482,
+      "ground_truth_name": "cassette player"
+    },
+    {
+      "image": "images/000008.ppm",
+      "source": "imagenette2-320/val/n02979186/ILSVRC2012_val_00028911.JPEG",
+      "ground_truth": 482,
+      "ground_truth_name": "cassette player"
+    },
+    {
+      "image": "images/000009.ppm",
+      "source": "imagenette2-320/val/n02979186/ILSVRC2012_val_00042982.JPEG",
+      "ground_truth": 482,
+      "ground_truth_name": "cassette player"
+    },
+    {
+      "image": "images/000010.ppm",
+      "source": "imagenette2-320/val/n01440764/ILSVRC2012_val_00045880.JPEG",
+      "ground_truth": 0,
+      "ground_truth_name": "tench"
+    },
+    {
+      "image": "images/000011.ppm",
+      "source": "imagenette2-320/val/n01440764/ILSVRC2012_val_00009111.JPEG",
+      "ground_truth": 0,
+      "ground_truth_name": "tench"
+    },
+    {
+      "image": "images/000012.ppm",
+      "source": "imagenette2-320/val/n01440764/ILSVRC2012_val_00046252.JPEG",
+      "ground_truth": 0,
+      "ground_truth_name": "tench"
+    },
+    {
+      "image": "images/000013.ppm",
+      "source": "imagenette2-320/val/n01440764/ILSVRC2012_val_00009191.JPEG",
+      "ground_truth": 0,
+      "ground_truth_name": "tench"
+    },
+    {
+      "image": "images/000014.ppm",
+      "source": "imagenette2-320/val/n01440764/ILSVRC2012_val_00029930.JPEG",
+      "ground_truth": 0,
+      "ground_truth_name": "tench"
+    },
+    {
+      "image": "images/000015.ppm",
+      "source": "imagenette2-320/val/n01440764/ILSVRC2012_val_00021740.JPEG",
+      "ground_truth": 0,
+      "ground_truth_name": "tench"
+    },
+    {
+      "image": "images/000016.ppm",
+      "source": "imagenette2-320/val/n01440764/ILSVRC2012_val_00017700.JPEG",
+      "ground_truth": 0,
+      "ground_truth_name": "tench"
+    },
+    {
+      "image": "images/000017.ppm",
+      "source": "imagenette2-320/val/n01440764/ILSVRC2012_val_00037861.JPEG",
+      "ground_truth": 0,
+      "ground_truth_name": "tench"
+    },
+    {
+      "image": "images/000018.ppm",
+      "source": "imagenette2-320/val/n01440764/ILSVRC2012_val_00030740.JPEG",
+      "ground_truth": 0,
+      "ground_truth_name": "tench"
+    },
+    {
+      "image": "images/000019.ppm",
+      "source": "imagenette2-320/val/n01440764/ILSVRC2012_val_00017472.JPEG",
+      "ground_truth": 0,
+      "ground_truth_name": "tench"
+    },
+    {
+      "image": "images/000020.ppm",
+      "source": "imagenette2-320/val/n03000684/ILSVRC2012_val_00011951.JPEG",
+      "ground_truth": 491,
+      "ground_truth_name": "chain saw"
+    },
+    {
+      "image": "images/000021.ppm",
+      "source": "imagenette2-320/val/n03000684/ILSVRC2012_val_00029211.JPEG",
+      "ground_truth": 491,
+      "ground_truth_name": "chain saw"
+    },
+    {
+      "image": "images/000022.ppm",
+      "source": "imagenette2-320/val/n03000684/ILSVRC2012_val_00045940.JPEG",
+      "ground_truth": 491,
+      "ground_truth_name": "chain saw"
+    },
+    {
+      "image": "images/000023.ppm",
+      "source": "imagenette2-320/val/n03000684/ILSVRC2012_val_00045501.JPEG",
+      "ground_truth": 491,
+      "ground_truth_name": "chain saw"
+    },
+    {
+      "image": "images/000024.ppm",
+      "source": "imagenette2-320/val/n03000684/ILSVRC2012_val_00024480.JPEG",
+      "ground_truth": 491,
+      "ground_truth_name": "chain saw"
+    },
+    {
+      "image": "images/000025.ppm",
+      "source": "imagenette2-320/val/n03000684/ILSVRC2012_val_00007460.JPEG",
+      "ground_truth": 491,
+      "ground_truth_name": "chain saw"
+    },
+    {
+      "image": "images/000026.ppm",
+      "source": "imagenette2-320/val/n03000684/ILSVRC2012_val_00011170.JPEG",
+      "ground_truth": 491,
+      "ground_truth_name": "chain saw"
+    },
+    {
+      "image": "images/000027.ppm",
+      "source": "imagenette2-320/val/n03000684/ILSVRC2012_val_00017801.JPEG",
+      "ground_truth": 491,
+      "ground_truth_name": "chain saw"
+    },
+    {
+      "image": "images/000028.ppm",
+      "source": "imagenette2-320/val/n03000684/ILSVRC2012_val_00004262.JPEG",
+      "ground_truth": 491,
+      "ground_truth_name": "chain saw"
+    },
+    {
+      "image": "images/000029.ppm",
+      "source": "imagenette2-320/val/n03000684/ILSVRC2012_val_00047060.JPEG",
+      "ground_truth": 491,
+      "ground_truth_name": "chain saw"
+    },
+    {
+      "image": "images/000030.ppm",
+      "source": "imagenette2-320/val/n03028079/ILSVRC2012_val_00010770.JPEG",
+      "ground_truth": 497,
+      "ground_truth_name": "church"
+    },
+    {
+      "image": "images/000031.ppm",
+      "source": "imagenette2-320/val/n03028079/ILSVRC2012_val_00019711.JPEG",
+      "ground_truth": 497,
+      "ground_truth_name": "church"
+    },
+    {
+      "image": "images/000032.ppm",
+      "source": "imagenette2-320/val/n03028079/ILSVRC2012_val_00029870.JPEG",
+      "ground_truth": 497,
+      "ground_truth_name": "church"
+    },
+    {
+      "image": "images/000033.ppm",
+      "source": "imagenette2-320/val/n03028079/ILSVRC2012_val_00046550.JPEG",
+      "ground_truth": 497,
+      "ground_truth_name": "church"
+    },
+    {
+      "image": "images/000034.ppm",
+      "source": "imagenette2-320/val/n03028079/ILSVRC2012_val_00046232.JPEG",
+      "ground_truth": 497,
+      "ground_truth_name": "church"
+    },
+    {
+      "image": "images/000035.ppm",
+      "source": "imagenette2-320/val/n03028079/ILSVRC2012_val_00026451.JPEG",
+      "ground_truth": 497,
+      "ground_truth_name": "church"
+    },
+    {
+      "image": "images/000036.ppm",
+      "source": "imagenette2-320/val/n03028079/ILSVRC2012_val_00003682.JPEG",
+      "ground_truth": 497,
+      "ground_truth_name": "church"
+    },
+    {
+      "image": "images/000037.ppm",
+      "source": "imagenette2-320/val/n03028079/ILSVRC2012_val_00034220.JPEG",
+      "ground_truth": 497,
+      "ground_truth_name": "church"
+    },
+    {
+      "image": "images/000038.ppm",
+      "source": "imagenette2-320/val/n03028079/ILSVRC2012_val_00034021.JPEG",
+      "ground_truth": 497,
+      "ground_truth_name": "church"
+    },
+    {
+      "image": "images/000039.ppm",
+      "source": "imagenette2-320/val/n03028079/ILSVRC2012_val_00016832.JPEG",
+      "ground_truth": 497,
+      "ground_truth_name": "church"
+    },
+    {
+      "image": "images/000040.ppm",
+      "source": "imagenette2-320/val/n03888257/ILSVRC2012_val_00032482.JPEG",
+      "ground_truth": 701,
+      "ground_truth_name": "parachute"
+    },
+    {
+      "image": "images/000041.ppm",
+      "source": "imagenette2-320/val/n03888257/ILSVRC2012_val_00038942.JPEG",
+      "ground_truth": 701,
+      "ground_truth_name": "parachute"
+    },
+    {
+      "image": "images/000042.ppm",
+      "source": "imagenette2-320/val/n03888257/ILSVRC2012_val_00037770.JPEG",
+      "ground_truth": 701,
+      "ground_truth_name": "parachute"
+    },
+    {
+      "image": "images/000043.ppm",
+      "source": "imagenette2-320/val/n03888257/ILSVRC2012_val_00014381.JPEG",
+      "ground_truth": 701,
+      "ground_truth_name": "parachute"
+    },
+    {
+      "image": "images/000044.ppm",
+      "source": "imagenette2-320/val/n03888257/ILSVRC2012_val_00017020.JPEG",
+      "ground_truth": 701,
+      "ground_truth_name": "parachute"
+    },
+    {
+      "image": "images/000045.ppm",
+      "source": "imagenette2-320/val/n03888257/ILSVRC2012_val_00025121.JPEG",
+      "ground_truth": 701,
+      "ground_truth_name": "parachute"
+    },
+    {
+      "image": "images/000046.ppm",
+      "source": "imagenette2-320/val/n03888257/ILSVRC2012_val_00024340.JPEG",
+      "ground_truth": 701,
+      "ground_truth_name": "parachute"
+    },
+    {
+      "image": "images/000047.ppm",
+      "source": "imagenette2-320/val/n03888257/ILSVRC2012_val_00009370.JPEG",
+      "ground_truth": 701,
+      "ground_truth_name": "parachute"
+    },
+    {
+      "image": "images/000048.ppm",
+      "source": "imagenette2-320/val/n03888257/ILSVRC2012_val_00002990.JPEG",
+      "ground_truth": 701,
+      "ground_truth_name": "parachute"
+    },
+    {
+      "image": "images/000049.ppm",
+      "source": "imagenette2-320/val/n03888257/ILSVRC2012_val_00010460.JPEG",
+      "ground_truth": 701,
+      "ground_truth_name": "parachute"
+    },
+    {
+      "image": "images/000050.ppm",
+      "source": "imagenette2-320/val/n03425413/ILSVRC2012_val_00007471.JPEG",
+      "ground_truth": 571,
+      "ground_truth_name": "gas pump"
+    },
+    {
+      "image": "images/000051.ppm",
+      "source": "imagenette2-320/val/n03425413/ILSVRC2012_val_00004860.JPEG",
+      "ground_truth": 571,
+      "ground_truth_name": "gas pump"
+    },
+    {
+      "image": "images/000052.ppm",
+      "source": "imagenette2-320/val/n03425413/ILSVRC2012_val_00035242.JPEG",
+      "ground_truth": 571,
+      "ground_truth_name": "gas pump"
+    },
+    {
+      "image": "images/000053.ppm",
+      "source": "imagenette2-320/val/n03425413/ILSVRC2012_val_00032250.JPEG",
+      "ground_truth": 571,
+      "ground_truth_name": "gas pump"
+    },
+    {
+      "image": "images/000054.ppm",
+      "source": "imagenette2-320/val/n03425413/ILSVRC2012_val_00001432.JPEG",
+      "ground_truth": 571,
+      "ground_truth_name": "gas pump"
+    },
+    {
+      "image": "images/000055.ppm",
+      "source": "imagenette2-320/val/n03425413/ILSVRC2012_val_00044370.JPEG",
+      "ground_truth": 571,
+      "ground_truth_name": "gas pump"
+    },
+    {
+      "image": "images/000056.ppm",
+      "source": "imagenette2-320/val/n03425413/ILSVRC2012_val_00020951.JPEG",
+      "ground_truth": 571,
+      "ground_truth_name": "gas pump"
+    },
+    {
+      "image": "images/000057.ppm",
+      "source": "imagenette2-320/val/n03425413/ILSVRC2012_val_00004452.JPEG",
+      "ground_truth": 571,
+      "ground_truth_name": "gas pump"
+    },
+    {
+      "image": "images/000058.ppm",
+      "source": "imagenette2-320/val/n03425413/ILSVRC2012_val_00031412.JPEG",
+      "ground_truth": 571,
+      "ground_truth_name": "gas pump"
+    },
+    {
+      "image": "images/000059.ppm",
+      "source": "imagenette2-320/val/n03425413/ILSVRC2012_val_00009821.JPEG",
+      "ground_truth": 571,
+      "ground_truth_name": "gas pump"
+    },
+    {
+      "image": "images/000060.ppm",
+      "source": "imagenette2-320/val/n02102040/ILSVRC2012_val_00023440.JPEG",
+      "ground_truth": 217,
+      "ground_truth_name": "English springer"
+    },
+    {
+      "image": "images/000061.ppm",
+      "source": "imagenette2-320/val/n02102040/ILSVRC2012_val_00027182.JPEG",
+      "ground_truth": 217,
+      "ground_truth_name": "English springer"
+    },
+    {
+      "image": "images/000062.ppm",
+      "source": "imagenette2-320/val/n02102040/ILSVRC2012_val_00037182.JPEG",
+      "ground_truth": 217,
+      "ground_truth_name": "English springer"
+    },
+    {
+      "image": "images/000063.ppm",
+      "source": "imagenette2-320/val/n02102040/ILSVRC2012_val_00004650.JPEG",
+      "ground_truth": 217,
+      "ground_truth_name": "English springer"
+    },
+    {
+      "image": "images/000064.ppm",
+      "source": "imagenette2-320/val/n02102040/ILSVRC2012_val_00026521.JPEG",
+      "ground_truth": 217,
+      "ground_truth_name": "English springer"
+    },
+    {
+      "image": "images/000065.ppm",
+      "source": "imagenette2-320/val/n02102040/ILSVRC2012_val_00014280.JPEG",
+      "ground_truth": 217,
+      "ground_truth_name": "English springer"
+    },
+    {
+      "image": "images/000066.ppm",
+      "source": "imagenette2-320/val/n02102040/ILSVRC2012_val_00022412.JPEG",
+      "ground_truth": 217,
+      "ground_truth_name": "English springer"
+    },
+    {
+      "image": "images/000067.ppm",
+      "source": "imagenette2-320/val/n02102040/ILSVRC2012_val_00007032.JPEG",
+      "ground_truth": 217,
+      "ground_truth_name": "English springer"
+    },
+    {
+      "image": "images/000068.ppm",
+      "source": "imagenette2-320/val/n02102040/ILSVRC2012_val_00040140.JPEG",
+      "ground_truth": 217,
+      "ground_truth_name": "English springer"
+    },
+    {
+      "image": "images/000069.ppm",
+      "source": "imagenette2-320/val/n02102040/ILSVRC2012_val_00017370.JPEG",
+      "ground_truth": 217,
+      "ground_truth_name": "English springer"
+    },
+    {
+      "image": "images/000070.ppm",
+      "source": "imagenette2-320/val/n03445777/ILSVRC2012_val_00008161.JPEG",
+      "ground_truth": 574,
+      "ground_truth_name": "golf ball"
+    },
+    {
+      "image": "images/000071.ppm",
+      "source": "imagenette2-320/val/n03445777/ILSVRC2012_val_00014102.JPEG",
+      "ground_truth": 574,
+      "ground_truth_name": "golf ball"
+    },
+    {
+      "image": "images/000072.ppm",
+      "source": "imagenette2-320/val/n03445777/ILSVRC2012_val_00020502.JPEG",
+      "ground_truth": 574,
+      "ground_truth_name": "golf ball"
+    },
+    {
+      "image": "images/000073.ppm",
+      "source": "imagenette2-320/val/n03445777/ILSVRC2012_val_00038790.JPEG",
+      "ground_truth": 574,
+      "ground_truth_name": "golf ball"
+    },
+    {
+      "image": "images/000074.ppm",
+      "source": "imagenette2-320/val/n03445777/ILSVRC2012_val_00036171.JPEG",
+      "ground_truth": 574,
+      "ground_truth_name": "golf ball"
+    },
+    {
+      "image": "images/000075.ppm",
+      "source": "imagenette2-320/val/n03445777/ILSVRC2012_val_00011581.JPEG",
+      "ground_truth": 574,
+      "ground_truth_name": "golf ball"
+    },
+    {
+      "image": "images/000076.ppm",
+      "source": "imagenette2-320/val/n03445777/ILSVRC2012_val_00011431.JPEG",
+      "ground_truth": 574,
+      "ground_truth_name": "golf ball"
+    },
+    {
+      "image": "images/000077.ppm",
+      "source": "imagenette2-320/val/n03445777/ILSVRC2012_val_00009902.JPEG",
+      "ground_truth": 574,
+      "ground_truth_name": "golf ball"
+    },
+    {
+      "image": "images/000078.ppm",
+      "source": "imagenette2-320/val/n03445777/ILSVRC2012_val_00025591.JPEG",
+      "ground_truth": 574,
+      "ground_truth_name": "golf ball"
+    },
+    {
+      "image": "images/000079.ppm",
+      "source": "imagenette2-320/val/n03445777/ILSVRC2012_val_00022792.JPEG",
+      "ground_truth": 574,
+      "ground_truth_name": "golf ball"
+    },
+    {
+      "image": "images/000080.ppm",
+      "source": "imagenette2-320/val/n03417042/ILSVRC2012_val_00032800.JPEG",
+      "ground_truth": 569,
+      "ground_truth_name": "garbage truck"
+    },
+    {
+      "image": "images/000081.ppm",
+      "source": "imagenette2-320/val/n03417042/ILSVRC2012_val_00024560.JPEG",
+      "ground_truth": 569,
+      "ground_truth_name": "garbage truck"
+    },
+    {
+      "image": "images/000082.ppm",
+      "source": "imagenette2-320/val/n03417042/ILSVRC2012_val_00028190.JPEG",
+      "ground_truth": 569,
+      "ground_truth_name": "garbage truck"
+    },
+    {
+      "image": "images/000083.ppm",
+      "source": "imagenette2-320/val/n03417042/ILSVRC2012_val_00006922.JPEG",
+      "ground_truth": 569,
+      "ground_truth_name": "garbage truck"
+    },
+    {
+      "image": "images/000084.ppm",
+      "source": "imagenette2-320/val/n03417042/ILSVRC2012_val_00022172.JPEG",
+      "ground_truth": 569,
+      "ground_truth_name": "garbage truck"
+    },
+    {
+      "image": "images/000085.ppm",
+      "source": "imagenette2-320/val/n03417042/ILSVRC2012_val_00027110.JPEG",
+      "ground_truth": 569,
+      "ground_truth_name": "garbage truck"
+    },
+    {
+      "image": "images/000086.ppm",
+      "source": "imagenette2-320/val/n03417042/ILSVRC2012_val_00027150.JPEG",
+      "ground_truth": 569,
+      "ground_truth_name": "garbage truck"
+    },
+    {
+      "image": "images/000087.ppm",
+      "source": "imagenette2-320/val/n03417042/ILSVRC2012_val_00008430.JPEG",
+      "ground_truth": 569,
+      "ground_truth_name": "garbage truck"
+    },
+    {
+      "image": "images/000088.ppm",
+      "source": "imagenette2-320/val/n03417042/ILSVRC2012_val_00033842.JPEG",
+      "ground_truth": 569,
+      "ground_truth_name": "garbage truck"
+    },
+    {
+      "image": "images/000089.ppm",
+      "source": "imagenette2-320/val/n03417042/ILSVRC2012_val_00034001.JPEG",
+      "ground_truth": 569,
+      "ground_truth_name": "garbage truck"
+    },
+    {
+      "image": "images/000090.ppm",
+      "source": "imagenette2-320/val/n03394916/ILSVRC2012_val_00033682.JPEG",
+      "ground_truth": 566,
+      "ground_truth_name": "French horn"
+    },
+    {
+      "image": "images/000091.ppm",
+      "source": "imagenette2-320/val/n03394916/ILSVRC2012_val_00037592.JPEG",
+      "ground_truth": 566,
+      "ground_truth_name": "French horn"
+    },
+    {
+      "image": "images/000092.ppm",
+      "source": "imagenette2-320/val/n03394916/ILSVRC2012_val_00015542.JPEG",
+      "ground_truth": 566,
+      "ground_truth_name": "French horn"
+    },
+    {
+      "image": "images/000093.ppm",
+      "source": "imagenette2-320/val/n03394916/ILSVRC2012_val_00011691.JPEG",
+      "ground_truth": 566,
+      "ground_truth_name": "French horn"
+    },
+    {
+      "image": "images/000094.ppm",
+      "source": "imagenette2-320/val/n03394916/ILSVRC2012_val_00041242.JPEG",
+      "ground_truth": 566,
+      "ground_truth_name": "French horn"
+    },
+    {
+      "image": "images/000095.ppm",
+      "source": "imagenette2-320/val/n03394916/ILSVRC2012_val_00003620.JPEG",
+      "ground_truth": 566,
+      "ground_truth_name": "French horn"
+    },
+    {
+      "image": "images/000096.ppm",
+      "source": "imagenette2-320/val/n03394916/ILSVRC2012_val_00001492.JPEG",
+      "ground_truth": 566,
+      "ground_truth_name": "French horn"
+    },
+    {
+      "image": "images/000097.ppm",
+      "source": "imagenette2-320/val/n03394916/ILSVRC2012_val_00025430.JPEG",
+      "ground_truth": 566,
+      "ground_truth_name": "French horn"
+    },
+    {
+      "image": "images/000098.ppm",
+      "source": "imagenette2-320/val/n03394916/ILSVRC2012_val_00004301.JPEG",
+      "ground_truth": 566,
+      "ground_truth_name": "French horn"
+    },
+    {
+      "image": "images/000099.ppm",
+      "source": "imagenette2-320/val/n03394916/ILSVRC2012_val_00007921.JPEG",
+      "ground_truth": 566,
+      "ground_truth_name": "French horn"
+    }
+  ]
+}

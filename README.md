@@ -141,3 +141,15 @@ mode. The `PROJECT2_OFFLINE_ONLY` CMake option removes the viewer's OpenGL and
 GLFW dependencies. Project 2 requires a compatible NVIDIA GPU, CUDA, and OptiX
 9.1. See the [project2 README](projects/project2/README.md) for build and usage
 details and [ASSIGNMENT.md](projects/project2/ASSIGNMENT.md) for the tasks.
+
+## Project 3: AlexNet inference
+
+`projects/project3` performs AlexNet batch inference with CUDA. It provides
+benchmarking on synthetic images and CPU/GPU prediction validation on real
+images, with configurable batch size and stream count. Students use Nsight
+Systems and Nsight Compute to analyze the pipeline, overlap transfers and
+computation with CUDA streams, and optimize convolution and fully connected
+kernels. Pretrained weights and validation images are included; retrieving
+the weights requires Git LFS. See the
+[project3 README](projects/project3/README.md) for dependencies, build
+instructions and command-line options.

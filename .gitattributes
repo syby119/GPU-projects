@@ -5,3 +5,9 @@
 # Keep Windows command scripts in CRLF format in the working tree.
 *.bat text eol=crlf
 *.cmd text eol=crlf
+
+# Store Project 3 model weights with Git LFS.
+projects/project3/assets/models/*.bin filter=lfs diff=lfs merge=lfs -text
+
+# Preserve raw PPM pixel data without text conversion.
+projects/project3/assets/dataset/images/*.ppm binary

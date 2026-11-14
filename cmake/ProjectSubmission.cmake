@@ -2,9 +2,9 @@ include_guard(GLOBAL)
 include(CMakeParseArguments)
 
 function(add_project_submission_target)
-    cmake_parse_arguments(PARSE_ARGV 0 project_submission ""
+    cmake_parse_arguments(PARSE_ARGV 0 project_submission "EXCLUDE_SCRIPTS"
                           "NAME;SOURCE_DIR"
-                          "BASE_FILES")
+                          "BASE_FILES;ASSET_DIRS")
 
     if(NOT project_submission_NAME)
         message(FATAL_ERROR "add_project_submission_target requires NAME")
@@ -44,6 +44,8 @@ function(add_project_submission_target)
     set(PROJECT_SUBMISSION_SOURCE_DIR "${project_submission_source_dir}")
     set(PROJECT_SUBMISSION_BASE_DIR "${project_submission_base_dir}")
     set(PROJECT_SUBMISSION_BASE_FILES "${project_submission_BASE_FILES}")
+    set(PROJECT_SUBMISSION_ASSET_DIRS "${project_submission_ASSET_DIRS}")
+    set(PROJECT_SUBMISSION_EXCLUDE_SCRIPTS "${project_submission_EXCLUDE_SCRIPTS}")
     set(PROJECT_SUBMISSION_STAGING_DIR
         "${CMAKE_CURRENT_BINARY_DIR}/submission/${project_submission_NAME}")
     set(project_submission_archive
@@ -61,7 +63,7 @@ function(add_project_submission_target)
                 "${project_submission_NAME}"
         BYPRODUCTS "${project_submission_archive}"
         WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/submission"
-        COMMENT "Creating standalone source package for ${project_submission_NAME}"
+        COMMENT "Creating source package for ${project_submission_NAME}"
         VERBATIM)
 
     set_target_properties("submit_${project_submission_NAME}" PROPERTIES FOLDER "utility")
