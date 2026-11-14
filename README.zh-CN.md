@@ -100,7 +100,7 @@ cmake --build --preset linux-gcc-release-vcpkg --target submit_project1
 
 ## Project 0：CUDA 设备查询
 
-`projects/project0` 使用 CUDA Runtime API 查询设备信息，报告检测到的每个 CUDA 设备的属性和能力；存在多个 GPU 时，还会检查设备之间的对等访问能力。
+`projects/project0` 使用 CUDA Runtime、Driver API 和 NVML 查询设备信息，报告检测到的每个 CUDA 设备的属性和能力。CUDA Core 总数优先通过 NVML 查询，不支持时根据 SM 数量和架构表计算；存在多个 GPU 时，还会检查设备之间的对等访问能力。
 
 ## Project 1：Mandelbrot 渲染器
 

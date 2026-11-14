@@ -121,9 +121,11 @@ The resulting archive is written below the selected preset's binary directory:
 
 ## Project 0: CUDA device query
 
-`projects/project0` is a CUDA Runtime API device-query program. It reports
-properties and capabilities for every detected CUDA device, and checks peer
-access between devices when multiple GPUs are available.
+`projects/project0` uses the CUDA Runtime and Driver APIs, along with NVML,
+to report properties and capabilities for every detected CUDA device. CUDA
+Core counts use NVML when available and otherwise fall back to an architecture
+table. The program also checks peer access between devices when multiple GPUs
+are available.
 
 ## Project 1: Mandelbrot renderer
 

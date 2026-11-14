@@ -1,7 +1,32 @@
 #include <device_info.h>
 
 #include <common/utility.h>
+#include <gpu/driver_utility.h>
 #include <gpu/utility.h>
+
+#include <nvml.h>
+
+#include <cstdint>
+
+// Returns 0 when NVML cannot provide the CUDA core count.
+static uint32_t getCudaCoreCount(int device) {
+    char pciBusId[32];
+    if (cudaDeviceGetPCIBusId(pciBusId, sizeof(pciBusId), device) != cudaSuccess) {
+        return 0;
+    }
+
+    // CUDA and NVML device indices can differ; match the physical GPU by PCI bus ID.
+    nvmlDevice_t nvmlDevice;
+    uint32_t coreCount = 0;
+
+    if (nvmlDeviceGetHandleByPciBusId_v2(pciBusId, &nvmlDevice) == NVML_SUCCESS) {
+        if (nvmlDeviceGetNumGpuCores(nvmlDevice, &coreCount) != NVML_SUCCESS) {
+            coreCount = 0;
+        }
+    }
+
+    return coreCount;
+}
 
 static int convertSmVerToCudaCores(int major, int minor) {
     // This table and its fallback behavior match CUDA Samples'
@@ -51,10 +76,15 @@ void printDeviceInfo(int device) {
 
     println("  Multiprocessor Count:                           {}", property.multiProcessorCount);
 
-    if (int coresPerSm = convertSmVerToCudaCores(property.major, property.minor); coresPerSm > 0) {
+    if (uint32_t totalCudaCores = getCudaCoreCount(device); totalCudaCores > 0) {
+        uint32_t const coresPerSm = totalCudaCores / property.multiProcessorCount;
+        println("  CUDA Cores per Multiprocessor:                  {}", coresPerSm);
+        println("  Total CUDA Cores:                               {} (NVML)", totalCudaCores);
+    }
+    else if (int coresPerSm = convertSmVerToCudaCores(property.major, property.minor); coresPerSm > 0) {
         int const totalCudaCores = property.multiProcessorCount * coresPerSm;
         println("  CUDA Cores per Multiprocessor:                  {}", coresPerSm);
-        println("  Total CUDA Cores:                               {}", totalCudaCores);
+        println("  Total CUDA Cores:                               {} (architecture table)", totalCudaCores);
     }
     else {
         constexpr int defaultCoresPerSm = 128; // Fallback value for unknown SM versions
@@ -172,6 +202,21 @@ void printDeviceInfo(int device) {
     println("  Device Supports Stream Priorities:              {}", property.streamPrioritiesSupported ? "Yes" : "No");
     println("  Device Supports Compute Preemption:             {}", property.computePreemptionSupported ? "Yes" : "No");
     println("  Device Supports Cooperative Kernel Launch:      {}", property.cooperativeLaunch ? "Yes" : "No");
+
+#if CUDART_VERSION >= 11080
+    int clusterLaunch;
+    CHECK_CUDA(cudaDeviceGetAttribute(&clusterLaunch, cudaDevAttrClusterLaunch, device));
+    println("  Device Supports Thread Block Clusters:          {}", clusterLaunch ? "Yes" : "No");
+#endif
+
+#if CUDA_VERSION >= 12000
+    CUdevice driverDevice;
+    CHECK_CU(cuDeviceGet(&driverDevice, device));
+
+    int tensorMapAccess;
+    CHECK_CU(cuDeviceGetAttribute(&tensorMapAccess, CU_DEVICE_ATTRIBUTE_TENSOR_MAP_ACCESS_SUPPORTED, driverDevice));
+    println("  Device Supports Tensor Map Access (TMA):        {}", tensorMapAccess ? "Yes" : "No");
+#endif
 
     char const* computeModeNames[] = {
         "Default (multiple host threads can use ::cudaSetDevice() with device simultaneously)",

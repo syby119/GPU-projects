@@ -47,7 +47,7 @@ jobs:
         cuda: '13.1.0'
         method: 'network'
         # CUDA 13 separates CRT headers and NVVM from the nvcc package.
-        sub-packages: '["nvcc", "crt", "nvvm", "cudart", "cuda_profiler_api", "nvtx", "visual_studio_integration"]'
+        sub-packages: '["nvcc", "crt", "nvvm", "cudart", "nvml_dev", "cuda_profiler_api", "nvtx", "visual_studio_integration"]'
 
     - name: Initialize MSVC developer environment
       uses: ilammy/msvc-dev-cmd@v1
@@ -106,7 +106,7 @@ jobs:
       with:
         cuda: '13.1.0'
         method: 'network'
-        sub-packages: '["nvcc", "cudart", "profiler-api", "nvtx"]'
+        sub-packages: '["nvcc", "cudart", "nvml-dev", "profiler-api", "nvtx"]'
 
     - name: Configure CMake with GCC (Debug)
       run: |

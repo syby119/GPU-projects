@@ -15,6 +15,7 @@ endif()
 
 set(PROJECT0_BASE_FILES
     common/utility.h
+    gpu/driver_utility.h
     gpu/utility.h)
 
 set(PROJECT0_BASE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/base")
@@ -51,7 +52,7 @@ target_sources(project0 PRIVATE ${PROJECT0_BASE_HEADERS})
 source_group(TREE "${PROJECT0_BASE_DIR}" PREFIX "base" FILES ${PROJECT0_BASE_HEADERS})
 target_include_directories(project0 PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include")
 target_include_directories(project0 PRIVATE "${PROJECT0_BASE_DIR}")
-target_link_libraries(project0 PRIVATE CUDA::cudart)
+target_link_libraries(project0 PRIVATE CUDA::cudart CUDA::cuda_driver CUDA::nvml)
 
 # Add shared files manually with target_sources() when this project uses them.
 # The same list controls what submit_project0 bundles from base/.

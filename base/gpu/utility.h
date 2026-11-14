@@ -4,11 +4,13 @@
 
 #include <cstdint>
 #include <cstdio>
+#include <cstdlib>
 #include <stdexcept>
 #include <type_traits>
 
 #define LOG_CUDA(call) ::gpu::logCudaErrorImpl((call), #call, __FILE__, __LINE__)
 #define CHECK_CUDA(call) ::gpu::checkCudaImpl((call), #call, __FILE__, __LINE__)
+#define FATAL_CUDA(call) ::gpu::fatalCudaImpl((call), #call, __FILE__, __LINE__)
 
 template <typename T, typename U>
 constexpr auto divUp(T x, U y) {
@@ -46,6 +48,13 @@ inline void checkCudaImpl(cudaError_t status, char const* call, char const* file
         std::snprintf(
             message, sizeof(message), "CUDA runtime error(%d): %s", static_cast<int>(status), cudaGetErrorName(status));
         throw std::runtime_error(message);
+    }
+}
+
+inline void fatalCudaImpl(cudaError_t status, char const* call, char const* file, uint32_t line) {
+    if (status != cudaSuccess) {
+        logCudaErrorImpl(status, call, file, line);
+        std::exit(EXIT_FAILURE);
     }
 }
 
