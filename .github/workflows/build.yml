@@ -17,8 +17,7 @@ env:
 jobs:
 
   build-windows-vs:
-    # CUDA 12.6 integrates with VS2022, while windows-latest may select the
-    # unsupported Visual Studio 18 toolset.
+    # Pin the runner to Visual Studio 2022 for the CUDA 13.1 toolchain.
     runs-on: windows-2022
 
     steps:
@@ -28,7 +27,7 @@ jobs:
       uses: actions/cache@v4
       with:
         path: .vcpkg-binary-cache
-        key: vcpkg-${{ runner.os }}-${{ hashFiles('vcpkg.json', 'vcpkg-configuration.json') }}
+        key: vcpkg-${{ runner.os }}-${{ hashFiles('vcpkg.json', 'vcpkg-configuration.json', 'vcpkg_overlays/**') }}
 
     - name: Checkout vcpkg
       uses: actions/checkout@v4
@@ -45,9 +44,10 @@ jobs:
       uses: Jimver/cuda-toolkit@v0.2.35
       id: cuda-toolkit
       with:
-        cuda: '12.6.0'
+        cuda: '13.1.0'
         method: 'network'
-        sub-packages: '["nvcc", "cudart", "visual_studio_integration"]'
+        # CUDA 13 separates CRT headers and NVVM from the nvcc package.
+        sub-packages: '["nvcc", "crt", "nvvm", "cudart", "cuda_profiler_api", "nvtx", "visual_studio_integration"]'
 
     - name: Initialize MSVC developer environment
       uses: ilammy/msvc-dev-cmd@v1
@@ -80,7 +80,7 @@ jobs:
       uses: actions/cache@v4
       with:
         path: .vcpkg-binary-cache
-        key: vcpkg-${{ runner.os }}-${{ hashFiles('vcpkg.json', 'vcpkg-configuration.json') }}
+        key: vcpkg-${{ runner.os }}-${{ hashFiles('vcpkg.json', 'vcpkg-configuration.json', 'vcpkg_overlays/**') }}
 
     - name: Checkout vcpkg
       uses: actions/checkout@v4
@@ -104,9 +104,9 @@ jobs:
       uses: Jimver/cuda-toolkit@v0.2.35
       id: cuda-toolkit
       with:
-        cuda: '12.6.0'
+        cuda: '13.1.0'
         method: 'network'
-        sub-packages: '["nvcc", "cudart"]'
+        sub-packages: '["nvcc", "cudart", "profiler-api", "nvtx"]'
 
     - name: Configure CMake with GCC (Debug)
       run: |
