@@ -152,6 +152,7 @@ add_custom_command(
             "${CMAKE_CURRENT_SOURCE_DIR}/include/launch_params.h"
     VERBATIM)
 add_custom_target(project2_optix_ir DEPENDS "${PROJECT2_OPTIX_IR}")
+set_target_properties(project2_optix_ir PROPERTIES FOLDER "utility")
 
 add_executable(project2
     src/camera.cpp
