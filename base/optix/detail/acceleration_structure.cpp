@@ -65,7 +65,7 @@ AccelerationStructure::AccelerationStructure(
     CHECK_OPTIX(optixAccelComputeMemoryUsage(m_context, &m_options, inputs.data(), m_inputCount, &sizes));
     gpu::Buffer<std::byte> scratch(sizes.tempSizeInBytes);
     m_storage.reallocate(sizes.outputSizeInBytes);
-    gpu::Buffer<size_t> compacted(1);
+    gpu::Buffer<size_t, 1> compacted;
     OptixAccelEmitDesc emit{address(compacted.data()), OPTIX_PROPERTY_TYPE_COMPACTED_SIZE};
     bool const allowCompact = (m_options.buildFlags & OPTIX_BUILD_FLAG_ALLOW_COMPACTION) != 0;
     CHECK_OPTIX(optixAccelBuild(

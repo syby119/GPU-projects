@@ -4,8 +4,10 @@
 
 namespace optix {
 
-StaticTransform::StaticTransform(DeviceContext const& context, OptixStaticTransform const& descriptor)
-    : m_storage(1) {
+StaticTransform::StaticTransform() noexcept
+    : m_storage{decltype(m_storage)::adopt(nullptr)} {}
+
+StaticTransform::StaticTransform(DeviceContext const& context, OptixStaticTransform const& descriptor) {
     m_storage.copyFromHost(&descriptor);
     CHECK_OPTIX(optixConvertPointerToTraversableHandle(
         context.handle(), address(m_storage.data()), OPTIX_TRAVERSABLE_TYPE_STATIC_TRANSFORM, &m_handle));

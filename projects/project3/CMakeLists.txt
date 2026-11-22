@@ -19,8 +19,9 @@ find_package(CUDAToolkit REQUIRED)
 
 set(PROJECT3_BASE_FILES
     common/timer.h
-    gpu/buffer.h
-    gpu/pinned_buffer.h
+    gpu/buffer/buffer.h
+    gpu/buffer/buffer_storage.h
+    gpu/buffer/pinned_buffer.h
     gpu/event.h
     gpu/stream.h
     gpu/utility.h)

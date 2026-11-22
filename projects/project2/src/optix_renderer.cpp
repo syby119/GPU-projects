@@ -22,7 +22,6 @@ OptixRenderer::OptixRenderer(
           OPTIX_DENOISER_MODEL_KIND_TEMPORAL_AOV,
           OptixDenoiserOptions{.guideAlbedo = 1, .guideNormal = 1}) {
     createPipelineAndShaderBindingTable(modulePath);
-    m_launchParams.reallocate(1);
     resize(width, height);
 }
 

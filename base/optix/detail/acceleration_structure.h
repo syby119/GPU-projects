@@ -1,7 +1,7 @@
 #pragma once
 
 #include <optix/device_context.h>
-#include <gpu/buffer.h>
+#include <gpu/buffer/buffer.h>
 
 #include <cstddef>
 #include <cstdint>

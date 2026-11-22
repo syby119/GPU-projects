@@ -54,7 +54,8 @@ set(PROJECT2_OPTIX_FILES
     optix/shader_binding_table.h
     optix/shader_binding_table.cpp)
 set(PROJECT2_BASE_FILES
-    gpu/buffer.h
+    gpu/buffer/buffer.h
+    gpu/buffer/buffer_storage.h
     gpu/timer.h
     gpu/utility.h
     gpu/texture/texture2d.h

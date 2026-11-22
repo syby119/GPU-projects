@@ -2,7 +2,7 @@
 
 #include <launch_params.h>
 
-#include <gpu/buffer.h>
+#include <gpu/buffer/buffer.h>
 #include <gpu/texture/texture_cubemap.h>
 #include <optix/device_context.h>
 #include <optix/geometry_acceleration_structure.h>

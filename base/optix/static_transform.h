@@ -2,7 +2,7 @@
 
 #include <optix/device_context.h>
 
-#include <gpu/buffer.h>
+#include <gpu/buffer/buffer.h>
 
 namespace optix {
 
@@ -12,7 +12,7 @@ namespace optix {
 // If the child handle changes, create a new StaticTransform and rebuild its parent IAS.
 class StaticTransform {
 public:
-    StaticTransform() = default;
+    StaticTransform() noexcept;
 
     StaticTransform(DeviceContext const& context, OptixStaticTransform const& descriptor);
 
@@ -27,7 +27,7 @@ public:
     }
 
 private:
-    gpu::Buffer<OptixStaticTransform> m_storage;
+    gpu::Buffer<OptixStaticTransform, 1> m_storage;
     OptixTraversableHandle m_handle{};
 };
 

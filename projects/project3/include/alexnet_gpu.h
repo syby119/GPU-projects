@@ -1,9 +1,9 @@
 #pragma once
 
 #include "alexnet_common.h"
-#include "gpu/buffer.h"
+#include "gpu/buffer/buffer.h"
+#include "gpu/buffer/pinned_buffer.h"
 #include "gpu/event.h"
-#include "gpu/pinned_buffer.h"
 #include "gpu/stream.h"
 
 #include <array>

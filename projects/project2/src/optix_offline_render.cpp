@@ -4,7 +4,7 @@
 #include <optix_renderer.h>
 #include <scene.h>
 
-#include <gpu/buffer.h>
+#include <gpu/buffer/buffer.h>
 #include <gpu/timer.h>
 #include <gpu/utility.h>
 #include <optix/device_context.h>

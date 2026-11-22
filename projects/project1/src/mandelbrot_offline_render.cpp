@@ -7,7 +7,7 @@
 #include <stdexcept>
 #include <vector>
 
-#include <gpu/buffer.h>
+#include <gpu/buffer/buffer.h>
 #include <gpu/timer.h>
 #include <gpu/utility.h>
 

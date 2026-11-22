@@ -22,7 +22,8 @@ find_path(STB_IMAGE_WRITE_INCLUDE_DIR NAMES stb_image_write.h REQUIRED)
 set(PROJECT1_BASE_FILES
     common/timer.h
     common/utility.h
-    gpu/buffer.h
+    gpu/buffer/buffer.h
+    gpu/buffer/buffer_storage.h
     gpu/timer.h
     gpu/utility.h)
 

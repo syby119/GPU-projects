@@ -3,7 +3,7 @@
 #include <camera.h>
 #include <launch_params.h>
 #include <scene.h>
-#include <gpu/buffer.h>
+#include <gpu/buffer/buffer.h>
 #include <optix/denoiser.h>
 #include <optix/device_context.h>
 #include <optix/pipeline.h>
@@ -48,7 +48,7 @@ private:
     uint32_t m_frameIndex{};
 
     // Launch data and progressively averaged radiance.
-    gpu::Buffer<LaunchParams> m_launchParams;
+    gpu::Buffer<LaunchParams, 1> m_launchParams;
     gpu::Buffer<float4> m_accumulation;
 
 private:
